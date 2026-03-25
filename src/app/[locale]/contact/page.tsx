@@ -53,7 +53,7 @@ const ContactContent = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-24 overflow-hidden bg-gradient-to-br from-white via-primary/5 to-white">
+      <section className="relative pt-20 pb-24 overflow-hidden bg-gradient-to-br from-primary via-primary/50 to-primary">
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
           <motion.div
@@ -293,7 +293,7 @@ const ContactContent = () => {
       </section>
 
       {/* Contact Cards Section */}
-      <section className="py-24 bg-secondary relative overflow-hidden">
+      <section className="py-24 bg-primary relative overflow-hidden">
         {/* Background pattern */}
         <div
           className="absolute inset-0 opacity-5"
@@ -637,7 +637,7 @@ const ContactContent = () => {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="absolute -top-3 -right-3 bg-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
+                      className="absolute -top-3 -right-3 bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
                     >
                       {language === "ar" ? "مجاني للتجربة" : "Free Trial"}
                     </motion.div>

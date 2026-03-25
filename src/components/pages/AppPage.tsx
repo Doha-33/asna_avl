@@ -220,7 +220,7 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
       <Navbar />
 
       {/* Hero Section - InstaPay Style */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center bg-gradient-to-br from-primary via-primary to-primary/95 overflow-hidden">
+      <section ref={heroRef} className="relative pt-20 min-h-screen flex items-center bg-gradient-to-br from-primary via-primary to-primary/95 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
@@ -254,7 +254,7 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
                 <span className="text-sm font-medium">{activeContent.hero.badge}</span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1]">
+              <h1 className="text-5xl md:text-5xl lg:text-6xl font-black mb-6 leading-[1.1]">
                 {activeContent.hero.title}
                 <span className="block text-accent">{activeContent.hero.subtitle}</span>
               </h1>

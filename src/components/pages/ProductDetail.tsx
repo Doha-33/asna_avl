@@ -10,7 +10,8 @@ import {
   Zap, 
   CheckCircle2,
   Package,
-  ChevronRight
+  ChevronRight,
+  ArrowLeftRight
 } from "lucide-react";
 import { useLanguage } from "@/components/LanguageContext";
 import { Navbar } from "@/components/Navbar";
@@ -122,6 +123,40 @@ export default function ProductDetail() {
                   className="text-lg text-slate-600 leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: product.description }}
                 />
+
+                {/* New Attributes Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 py-8 border-y border-slate-100 my-8">
+                  {product.network && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider">{isAr ? "الشبكة" : "Network"}</span>
+                      <span className="text-primary font-bold text-sm">{product.network}</span>
+                    </div>
+                  )}
+                  {product.sound && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider">{isAr ? "الصوت" : "Sound"}</span>
+                      <span className="text-primary font-bold text-sm">{product.sound}</span>
+                    </div>
+                  )}
+                  {product.interference && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider">{isAr ? "التشويش" : "Interference"}</span>
+                      <span className="text-primary font-bold text-sm">{product.interference}</span>
+                    </div>
+                  )}
+                  {product.power && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider">{isAr ? "الطاقة" : "Power"}</span>
+                      <span className="text-primary font-bold text-sm">{product.power}</span>
+                    </div>
+                  )}
+                  {product.installation && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] text-slate-400 uppercase font-black tracking-wider">{isAr ? "التركيب" : "Installation"}</span>
+                      <span className="text-primary font-bold text-sm">{product.installation}</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -145,6 +180,13 @@ export default function ProductDetail() {
                 >
                   <ShoppingCart size={24} />
                   {isAr ? "طلب عرض سعر" : "Request a Quote"}
+                </button>
+                <button 
+                  onClick={() => router.push(`/${language}/products?category=${product.category}`)}
+                  className="w-full sm:w-auto px-8 py-5 rounded-2xl border-2 border-slate-100 text-primary font-bold hover:bg-slate-50 transition-all flex items-center justify-center gap-3"
+                >
+                  <ArrowLeftRight size={20} />
+                  {isAr ? "قارن مع منتجات أخرى" : "Compare with others"}
                 </button>
               </div>
             </motion.div>

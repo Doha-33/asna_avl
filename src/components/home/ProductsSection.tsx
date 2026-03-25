@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft, Package, LayoutGrid, Layers, ShoppingCart, ArrowRight, Sparkles, TrendingUp, Star, Heart } from "lucide-react";
+import { ChevronRight, ChevronLeft, Package, LayoutGrid, Layers, ShoppingCart, ArrowRight, Sparkles, TrendingUp, Star, Heart, ArrowLeftRight, X } from "lucide-react";
 import { useLanguage } from "../LanguageContext";
 import { fetchApi, MainCategory, SubCategory, NestedCategory, Product } from "@/lib/api";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export const ProductsSection = () => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
   const categoryId = searchParams.get("category");
@@ -24,6 +24,7 @@ export const ProductsSection = () => {
   const [selectedNested, setSelectedNested] = useState<string | null>(null);
   
   const [loading, setLoading] = useState(true);
+  const [compareList, setCompareList] = useState<string[]>([]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -47,6 +48,18 @@ export const ProductsSection = () => {
     };
     loadData();
   }, []);
+
+  const toggleCompare = (id: string) => {
+    setCompareList(prev => {
+      if (prev.includes(id)) {
+        return prev.filter(item => item !== id);
+      }
+      if (prev.length < 2) {
+        return [...prev, id];
+      }
+      return [prev[0], id];
+    });
+  };
 
   const resetSelection = () => {
     setSelectedMain(null);
@@ -337,6 +350,21 @@ export const ProductsSection = () => {
                         className="max-h-full object-contain transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
                         referrerPolicy="no-referrer"
                       />
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleCompare(product._id);
+                        }}
+                        className={`absolute top-4 left-4 flex items-center gap-2 px-3 py-2 rounded-xl transition-all duration-300 z-20 font-bold text-xs shadow-lg ${
+                          compareList.includes(product._id) 
+                            ? 'bg-accent text-white scale-105' 
+                            : 'bg-white/95 backdrop-blur-sm text-slate-600 hover:text-accent hover:bg-white'
+                        }`}
+                      >
+                        <ArrowLeftRight size={16} />
+                        <span>{language === "ar" ? "مقارنة" : "Compare"}</span>
+                      </button>
                       {product.discountPrice > 0 && (
                         <div className="absolute top-4 right-4 bg-gradient-to-r from-accent to-accent/80 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
                           {product.discountPrice} SAR
@@ -393,6 +421,79 @@ export const ProductsSection = () => {
           </div>
         )}
       </div>
+
+      {/* Floating Comparison Bar */}
+      <AnimatePresence>
+        {compareList.length > 0 && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl"
+          >
+            <div className="bg-primary/95 backdrop-blur-xl border border-white/10 rounded-3xl p-4 shadow-2xl flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4 flex-1">
+                <div className="flex -space-x-3 rtl:space-x-reverse">
+                  {compareList.map((id) => {
+                    const product = products.find(p => p._id === id);
+                    return (
+                      <div key={id} className="relative w-12 h-12 rounded-xl bg-white border-2 border-primary overflow-hidden shadow-lg group">
+                        <img 
+                          src={product?.imageUrl} 
+                          alt={product?.name}
+                          className="w-full h-full object-contain p-1"
+                        />
+                        <button 
+                          onClick={() => toggleCompare(id)}
+                          className="absolute inset-0 bg-red-500/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    );
+                  })}
+                  {compareList.length < 2 && (
+                    <div className="w-12 h-12 rounded-xl border-2 border-dashed border-white/30 flex items-center justify-center text-white/30">
+                      <Package size={18} />
+                    </div>
+                  )}
+                </div>
+                <div className="hidden sm:block">
+                  <p className="text-white font-bold text-sm">
+                    {language === "ar" ? "مقارنة المنتجات" : "Compare Products"}
+                  </p>
+                  <p className="text-white/60 text-xs">
+                    {compareList.length === 1 
+                      ? (language === "ar" ? "اختر منتجاً آخر للمقارنة" : "Select another product to compare")
+                      : (language === "ar" ? "جاهز للمقارنة" : "Ready to compare")}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <button 
+                  onClick={() => setCompareList([])}
+                  className="p-3 rounded-xl text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  <X size={20} />
+                </button>
+                <button
+                  disabled={compareList.length < 2}
+                  onClick={() => router.push(`/${language}/compare?id1=${compareList[0]}&id2=${compareList[1]}`)}
+                  className={`px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all ${
+                    compareList.length === 2
+                      ? 'bg-accent text-white shadow-lg shadow-accent/30 hover:scale-105 active:scale-95'
+                      : 'bg-white/10 text-white/30 cursor-not-allowed'
+                  }`}
+                >
+                  {language === "ar" ? "قارن الآن" : "Compare Now"}
+                  <ArrowLeftRight size={18} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

@@ -120,6 +120,11 @@ export interface Product {
   subTitle: string;
   brand: string;
   price: number;
+  network?: string; // ["4G", "2G"]
+  sound?: string; // ["With Mike", "Without Mike"]
+  interference?: string; // ["Not jam-resistant", "jam-resistant"]
+  power?: string; // ["Supports electricity", "No Supports electricity"]
+  installation?: string; // ["No technician needed", "technician needed"]
   costPrice: number;
   discountPrice: number;
   weight: number;
@@ -131,9 +136,9 @@ export interface Product {
   description: string;
   media: string[];
   imageUrl: string;
-  seoTitle: string;
-  seoUrl: string;
-  seoDescription: string;
+  seoTitle?: string;
+  seoUrl?: string;
+  seoDescription?: string;
   createdAt: string;
   updatedAt: string;
 }
