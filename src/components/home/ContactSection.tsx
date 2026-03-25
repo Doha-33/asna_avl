@@ -57,7 +57,7 @@ export const ContactSection = () => {
     {
       icon: Mail,
       title: language === "ar" ? "البريد الإلكتروني" : "Email Address",
-      value: settings?.email || "info@asnaavl.com",
+      value: "info@asnaavl.com",
       bgColor: "bg-indigo-50",
       iconColor: "text-indigo-600",
       hoverBg: "hover:bg-indigo-50/80"
