@@ -34,7 +34,7 @@ export const Hero = () => {
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center opacity-30"
         style={{
-          backgroundImage: "url('https://ncf-ec2-east-33-hv.xconvert.com/downloads/G3niASQsFjb-z-0-y-69c2a0c4a20e651166baf20f.gif?uuid=be7075a3-7fb2-0f51-795f-8798888b4d66')",
+          backgroundImage: "url('/hero.gif')",
         }}
       />
 

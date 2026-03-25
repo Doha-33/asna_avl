@@ -280,36 +280,6 @@ const BlogContent = () => {
           </div>
         </div>
       </section>
-
-      {/* Newsletter */}
-      <section className="py-24 bg-primary text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
-            {language === "ar"
-              ? "اشترك في نشرتنا الإخبارية"
-              : "Subscribe to our newsletter"}
-          </h2>
-          <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto">
-            {language === "ar"
-              ? "ابقى على اطلاع بأحدث معلومات إدارة الأسطول والاتجاهات الصناعية والعروض المميزة"
-              : "Stay informed with the latest fleet management info, industry trends, and special offers"}
-          </p>
-
-          <form className="max-w-xl mx-auto flex flex-col gap-4">
-            <input
-              type="email"
-              placeholder={
-                language === "ar" ? "أدخل بريدك الإلكتروني" : "Enter your email"
-              }
-              className="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-4 outline-none focus:border-accent transition-all text-center"
-            />
-            <button className="accent-button w-full py-4 text-lg">
-              {language === "ar" ? "اشترك" : "Subscribe"}
-            </button>
-          </form>
-        </div>
-      </section>
-
       <Footer />
     </div>
   );

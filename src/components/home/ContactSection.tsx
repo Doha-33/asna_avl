@@ -87,7 +87,7 @@ export const ContactSection = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('https://ncf-ec2-east-29-hv.xconvert.com/downloads/jOFSd2pNbDV-z-0-y-69c2b91f1f9475861004c2f9.gif?uuid=187840b5-6281-71da-d54b-225d233b6126')",
+            backgroundImage: "url('/bg.gif')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
