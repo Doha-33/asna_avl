@@ -1,0 +1,5 @@
+{
+  "name": "Remix: ASNA AVL - Fleet Management",
+  "description": "A high-fidelity fleet management platform for ASNA AVL, built with Next.js and Tailwind CSS.",
+  "requestFramePermissions": []
+}
