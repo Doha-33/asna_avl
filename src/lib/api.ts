@@ -110,6 +110,13 @@ export interface NestedCategory {
   updatedAt: string;
 }
 
+export interface PricingItem {
+  _id: string;
+  compoundsAr: string;
+  compoundsEn: string;
+  createdAt: string;
+}
+
 export interface Product {
   _id: string;
   category: string; // main category id

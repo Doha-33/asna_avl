@@ -9,6 +9,7 @@ import { PricingSection } from "@/components/home/PricingSection";
 import { BlogSection } from "@/components/home/BlogSection";
 import { AppDownloadSection } from "@/components/home/AppDownloadSection";
 import { ClientsSection } from "@/components/home/ClientsSection";
+import { CertificatesSection } from "@/components/home/CertificatesSection";
 import { OffersSection } from "@/components/home/OffersSection";
 import { ContactSection } from "@/components/home/ContactSection";
 import { CTASection } from "@/components/home/CTASection";
@@ -22,6 +23,7 @@ export default function HomePage({ lang = "ar" }: { lang?: "ar" | "en" }) {
       <AboutSection />
       <FeaturedProducts />
       <ClientsSection />
+      <CertificatesSection />
       <PricingSection />
       <OffersSection />
       <BlogSection />

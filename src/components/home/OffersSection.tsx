@@ -3,8 +3,8 @@
 import { useLanguage } from "../LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import { fetchApi, Offer } from "@/lib/api";
-import { ExternalLink, Sparkles, Tag, Clock, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { fetchApi, fetchSettings, Offer } from "@/lib/api";
+import { ExternalLink, Sparkles, Tag, Clock, ArrowRight, ChevronLeft, ChevronRight, X as CloseIcon, Send, User, Phone, MessageSquare } from "lucide-react";
 
 export const OffersSection = () => {
   const { language } = useLanguage();
@@ -12,17 +12,79 @@ export const OffersSection = () => {
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
+  const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [whatsappNumber, setWhatsappNumber] = useState("201012345678");
 
   useEffect(() => {
-    const loadOffers = async () => {
-      const data = await fetchApi("/api/offers");
-      if (data) {
-        setOffers(data);
+    const loadData = async () => {
+      const [offersData, settings] = await Promise.all([
+        fetchApi("/api/offers"),
+        fetchSettings()
+      ]);
+
+      if (offersData && offersData.length > 0) {
+        setOffers(offersData);
+      } else {
+        // Mock data if API is empty
+        setOffers([
+          {
+            _id: "1",
+            offerName: language === "ar" ? "خصم 20% على باقات الأساطيل" : "20% Discount on Fleet Packages",
+            desc: language === "ar" 
+              ? "احصل على خصم حصري عند الاشتراك في باقة إدارة الأساطيل السنوية. العرض ساري لفترة محدودة."
+              : "Get an exclusive discount when subscribing to the annual fleet management package. Offer valid for a limited time.",
+            image: "https://picsum.photos/seed/offer1/800/600",
+            link: "#"
+          },
+          {
+            _id: "2",
+            offerName: language === "ar" ? "تركيب مجاني لأجهزة التتبع" : "Free Tracking Device Installation",
+            desc: language === "ar"
+              ? "وفر تكاليف التركيب عند شراء أكثر من 5 أجهزة تتبع. فريقنا الفني سيقوم بالتركيب مجاناً."
+              : "Save on installation costs when purchasing more than 5 tracking devices. Our technical team will install for free.",
+            image: "https://picsum.photos/seed/offer2/800/600",
+            link: "#"
+          },
+          {
+            _id: "3",
+            offerName: language === "ar" ? "شهر مجاني عند التجديد" : "One Month Free on Renewal",
+            desc: language === "ar"
+              ? "جدد اشتراكك الآن واحصل على شهر إضافي مجاناً. استمر في مراقبة أسطولك دون انقطاع."
+              : "Renew your subscription now and get an extra month for free. Keep monitoring your fleet without interruption.",
+            image: "https://picsum.photos/seed/offer3/800/600",
+            link: "#"
+          }
+        ]);
+      }
+
+      if (settings && settings.whatsapp) {
+        // Remove + and spaces
+        setWhatsappNumber(settings.whatsapp.replace(/\+/g, "").replace(/\s/g, ""));
       }
       setLoading(false);
     };
-    loadOffers();
-  }, []);
+    loadData();
+  }, [language]);
+
+  const handleWhatsAppSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedOffer) return;
+
+    setIsSubmitting(true);
+    
+    const text = language === "ar" 
+      ? `طلب عرض: ${selectedOffer.offerName}\nالاسم: ${formData.name}\nرقم الهاتف: ${formData.phone}\nالرسالة: ${formData.message}`
+      : `Offer Request: ${selectedOffer.offerName}\nName: ${formData.name}\nPhone: ${formData.phone}\nMessage: ${formData.message}`;
+    
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodedText}`, "_blank");
+    
+    setIsSubmitting(false);
+    setSelectedOffer(null);
+    setFormData({ name: "", phone: "", message: "" });
+  };
 
   const nextSlide = () => {
     setDirection(1);
@@ -36,8 +98,9 @@ export const OffersSection = () => {
 
   // Get visible offers (3 at a time)
   const getVisibleOffers = () => {
-    const visible = [];
-    for (let i = 0; i < 3; i++) {
+    const visible: Offer[] = [];
+    if (offers.length === 0) return visible;
+    for (let i = 0; i < Math.min(3, offers.length); i++) {
       const index = (currentIndex + i) % offers.length;
       visible.push(offers[index]);
     }
@@ -49,7 +112,7 @@ export const OffersSection = () => {
   const visibleOffers = getVisibleOffers();
 
   return (
-    <section className="py-20 md:py-24 bg-gradient-to-br from-slate-50 via-white to-slate-50 overflow-hidden">
+    <section id="offers" className="py-20 md:py-24 bg-gradient-to-br from-slate-50 via-white to-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <motion.div
@@ -134,15 +197,13 @@ export const OffersSection = () => {
                       whileHover={{ opacity: 1 }}
                       className="absolute inset-0 bg-primary/80 backdrop-blur-sm flex items-center justify-center z-10 opacity-0 hover:opacity-100 transition-opacity duration-300"
                     >
-                      <a 
-                        href={offer.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+                      <button 
+                        onClick={() => setSelectedOffer(offer)}
                         className="px-6 py-3 bg-white text-primary rounded-xl font-bold hover:bg-accent hover:text-white transition-all duration-300 flex items-center gap-2 transform hover:scale-105"
                       >
-                        <span>{language === "ar" ? "احصل على العرض" : "Get Offer"}</span>
-                        <ExternalLink size={16} />
-                      </a>
+                        <span>{language === "ar" ? "عرض التفاصيل" : "View Details"}</span>
+                        <ArrowRight size={16} />
+                      </button>
                     </motion.div>
                   </div>
 
@@ -164,15 +225,13 @@ export const OffersSection = () => {
                           {language === "ar" ? "عرض محدود" : "Limited time"}
                         </span>
                       </div>
-                      <a 
-                        href={offer.link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+                      <button 
+                        onClick={() => setSelectedOffer(offer)}
                         className="inline-flex items-center gap-1 text-sm font-bold text-accent hover:text-primary transition-colors group/link"
                       >
                         <span>{language === "ar" ? "اعرف المزيد" : "Learn more"}</span>
                         <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </motion.div>
@@ -231,6 +290,132 @@ export const OffersSection = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Offer Details Modal */}
+      <AnimatePresence>
+        {selectedOffer && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedOffer(null)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedOffer(null)}
+                className="absolute top-4 right-4 z-20 p-2 bg-white/80 backdrop-blur-md rounded-full text-primary hover:bg-accent hover:text-white transition-all shadow-lg"
+              >
+                <CloseIcon size={20} />
+              </button>
+
+              {/* Left Side: Offer Info */}
+              <div className="w-full md:w-1/2 relative h-64 md:h-auto">
+                <img 
+                  src={selectedOffer.image} 
+                  alt={selectedOffer.offerName} 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent p-8 flex flex-col justify-end">
+                  <div className="inline-flex items-center gap-1.5 bg-accent text-white px-3 py-1.5 rounded-full text-xs font-bold w-fit mb-4">
+                    <Tag size={12} />
+                    <span>{language === "ar" ? "عرض حصري" : "Exclusive Offer"}</span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl font-black text-white mb-2">
+                    {selectedOffer.offerName}
+                  </h3>
+                  <p className="text-white/80 text-sm leading-relaxed line-clamp-4">
+                    {selectedOffer.desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Side: Form */}
+              <div className="w-full md:w-1/2 p-8 md:p-10 overflow-y-auto">
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold text-primary mb-2">
+                    {language === "ar" ? "احصل على العرض الآن" : "Get the Offer Now"}
+                  </h4>
+                  <p className="text-sm text-slate-500">
+                    {language === "ar" 
+                      ? "املأ البيانات التالية وسنتواصل معك عبر واتساب لإتمام طلبك"
+                      : "Fill in the following details and we will contact you via WhatsApp to complete your request"}
+                  </p>
+                </div>
+
+                <form onSubmit={handleWhatsAppSubmit} className="space-y-4">
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-primary/60 uppercase tracking-wider px-1">
+                      {language === "ar" ? "الاسم الكامل" : "Full Name"}
+                    </label>
+                    <div className="relative group">
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-accent transition-colors" />
+                      <input
+                        required
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder={language === "ar" ? "أدخل اسمك بالكامل" : "Enter your full name"}
+                        className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-primary/60 uppercase tracking-wider px-1">
+                      {language === "ar" ? "رقم الهاتف" : "Phone Number"}
+                    </label>
+                    <div className="relative group">
+                      <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-accent transition-colors" />
+                      <input
+                        required
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder={language === "ar" ? "01XXXXXXXXX" : "01XXXXXXXXX"}
+                        className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-primary/60 uppercase tracking-wider px-1">
+                      {language === "ar" ? "رسالة إضافية (اختياري)" : "Additional Message (Optional)"}
+                    </label>
+                    <div className="relative group">
+                      <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-slate-400 group-focus-within:text-accent transition-colors" />
+                      <textarea
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder={language === "ar" ? "كيف يمكننا مساعدتك؟" : "How can we help you?"}
+                        rows={3}
+                        className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent/20 focus:border-accent outline-none transition-all resize-none"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-accent text-white rounded-xl font-bold shadow-lg shadow-accent/25 hover:bg-primary transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <span>{language === "ar" ? "إرسال عبر واتساب" : "Send via WhatsApp"}</span>
+                    <Send size={18} className="group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" />
+                  </button>
+                </form>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

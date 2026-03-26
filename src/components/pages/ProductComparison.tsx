@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useLanguage } from "@/components/LanguageContext";
 import { fetchApi, Product } from "@/lib/api";
 import { Check, X, Loader2, ArrowLeftRight, ArrowLeft, ArrowRight } from "lucide-react";

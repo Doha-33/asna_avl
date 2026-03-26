@@ -148,14 +148,14 @@ const WhyContent = () => {
 
       {/* Hero Section */}
       <section
-        className="relative pt-30 pb-24 overflow-hidden bg-primary"
+        className="relative pt-30 pb-24 overflow-hidden bg-secondary"
         style={{
           backgroundImage: "url('/bg5.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-primary/95" />
+        <div className="absolute inset-0 bg-secondary/95" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -383,7 +383,7 @@ const WhyContent = () => {
             </div>
 
             {/* Main card */}
-            <div className="glass-card bg-gradient-to-br from-primary to-primary/95 p-16 rounded-[60px] border border-white/10 shadow-2xl relative overflow-hidden group hover:shadow-accent/20 hover:shadow-2xl transition-all duration-500">
+            <div className="glass-card bg-gradient-to-br from-secondary to-secondary/95 p-16 rounded-[60px] border border-white/10 shadow-2xl relative overflow-hidden group hover:shadow-accent/20 hover:shadow-2xl transition-all duration-500">
               {/* Animated gradient line */}
               <motion.div
                 className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-primary to-accent"
@@ -425,7 +425,7 @@ const WhyContent = () => {
       </section>
 
       {/* Why Us Section */}
-      <section className="py-24 bg-primary relative overflow-hidden">
+      <section className="py-24 bg-secondary relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-2 h-2 bg-accent rounded-full" />
@@ -535,7 +535,7 @@ const WhyContent = () => {
             <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
               {language === "ar" ? "إنجازاتنا" : "Our Achievements"}
             </span>
-            <h2 className="text-4xl md:text-5xl text-primary font-extrabold mb-6">
+            <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
               {language === "ar"
                 ? "انجازاتنا الرئيسية"
                 : "Our Main Achievements"}
@@ -629,7 +629,7 @@ const WhyContent = () => {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl text-primary font-extrabold mb-6">
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
               {language === "ar" ? "الرؤية والقيم" : "Vision & Values"}
             </h2>
           </div>
@@ -643,7 +643,7 @@ const WhyContent = () => {
                 <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center mx-auto mb-6">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-4">{value.title}</h3>
+                <h3 className="text-xl font-bold mb-4">{value.title}</h3>
                 <p className="text-primary/60 text-sm leading-relaxed">
                   {value.desc}
                 </p>
@@ -832,7 +832,7 @@ const WhyContent = () => {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="absolute -top-3 -right-3 bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
+                      className="absolute -top-3 -right-3 bg-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
                     >
                       {language === "ar" ? "مجاني للتجربة" : "Free Trial"}
                     </motion.div>

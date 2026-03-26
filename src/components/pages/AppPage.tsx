@@ -31,7 +31,8 @@ import {
   Headphones,
   Settings,
   Truck,
-  Package
+  Package,
+  User
 } from "lucide-react";
 import { useLanguage } from "@/components/LanguageContext";
 import Link from "next/link";
@@ -51,11 +52,11 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
   const content = {
     ar: {
       hero: {
-        title: "تطبيق ASNA AVL",
-        subtitle: "إدارة أسطولك",
-        description: "حل متكامل لإدارة المركبات والعمليات اللوجستية من هاتفك الذكي. تتبع، تحكم، وحلل أداء أسطولك في أي وقت ومن أي مكان.",
-        cta: "حمل التطبيق مجاناً",
-        badge: "تقييم 4.9",
+        title: "نظام ASNA AVL",
+        subtitle: "إدارة أسطولك المتكاملة",
+        description: "حل متكامل لإدارة المركبات والعمليات اللوجستية من أي جهاز. تتبع، تحكم، وحلل أداء أسطولك عبر الويب أو الجوال.",
+        cta: "ابدأ الآن مجاناً",
+        badge: "النظام الأكثر تطوراً",
       },
       stats: [
         { value: "500+", label: "شركة تثق بنا", icon: Users },
@@ -63,6 +64,17 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
         { value: "99.9%", label: "وقت تشغيل", icon: Zap },
         { value: "24/7", label: "دعم فني", icon: Headphones },
       ],
+      systemShowcase: {
+        title: "لوحة تحكم ذكية",
+        subtitle: "تحكم كامل من متصفحك",
+        description: "واجهة مستخدم متطورة تعمل على أجهزة الكمبيوتر المحمول والمكتبي، توفر لك رؤية شاملة لكل تحركات أسطولك مع تقارير تحليلية دقيقة.",
+        features: [
+          "خرائط تفاعلية عالية الدقة",
+          "تقارير تحليلية مفصلة",
+          "إدارة السائقين والمهام",
+          "تنبيهات الصيانة الدورية"
+        ]
+      },
       features: [
         {
           title: "تتبع لحظي",
@@ -92,13 +104,13 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
       },
       howItWorks: [
         {
-          title: "حمل التطبيق",
-          description: "حمل التطبيق من متجر التطبيقات على هاتفك",
-          icon: Download,
+          title: "سجل حسابك",
+          description: "تواصل معنا لفتح حسابك في النظام",
+          icon: User,
         },
         {
           title: "سجل الدخول",
-          description: "سجل دخولك باستخدام بيانات حسابك",
+          description: "سجل دخولك من أي متصفح أو عبر التطبيق",
           icon: Smartphone,
         },
         {
@@ -111,20 +123,20 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
         {
           name: "أحمد السالم",
           role: "مدير أسطول",
-          content: "تطبيق رائع ساعدنا في توفير أكثر من 30% من تكاليف الوقود",
+          content: "نظام رائع ساعدنا في توفير أكثر من 30% من تكاليف الوقود وتحسين كفاءة السائقين.",
           rating: 5,
         },
         {
           name: "فاطمة الزهراني",
           role: "مدير عمليات",
-          content: "أفضل استثمار قمنا به لتحسين كفاءة الأسطول",
+          content: "أفضل استثمار قمنا به لتحسين كفاءة الأسطول. لوحة التحكم سهلة الاستخدام وشاملة.",
           rating: 5,
         },
       ],
       cta: {
         title: "ابدأ الآن",
-        subtitle: "حمل التطبيق واستمتع بتجربة إدارة أسطول متطورة",
-        button: "حمل التطبيق مجاناً",
+        subtitle: "انضم إلى مئات الشركات التي تدير أساطيلها بذكاء مع ASNA AVL",
+        button: "جرب النظام مجاناً",
       },
       footer: {
         copyright: "© 2024 ASNA AVL. جميع الحقوق محفوظة",
@@ -132,11 +144,11 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
     },
     en: {
       hero: {
-        title: "ASNA AVL App",
-        subtitle: "Fleet Management",
-        description: "Complete fleet and logistics management solution on your smartphone. Track, control, and analyze your fleet performance anytime, anywhere.",
-        cta: "Download Free App",
-        badge: "Rating 4.9",
+        title: "ASNA AVL System",
+        subtitle: "Integrated Fleet Management",
+        description: "A complete vehicle and logistics management solution from any device. Track, control, and analyze your fleet performance via web or mobile.",
+        cta: "Start Now for Free",
+        badge: "Most Advanced System",
       },
       stats: [
         { value: "500+", label: "Trusted Companies", icon: Users },
@@ -144,6 +156,17 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
         { value: "99.9%", label: "Uptime", icon: Zap },
         { value: "24/7", label: "Support", icon: Headphones },
       ],
+      systemShowcase: {
+        title: "Smart Dashboard",
+        subtitle: "Full Control from Your Browser",
+        description: "Advanced user interface for laptops and desktops, providing a comprehensive view of all fleet movements with accurate analytical reports.",
+        features: [
+          "High-precision interactive maps",
+          "Detailed analytical reports",
+          "Driver and task management",
+          "Periodic maintenance alerts"
+        ]
+      },
       features: [
         {
           title: "Real-time Tracking",
@@ -173,13 +196,13 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
       },
       howItWorks: [
         {
-          title: "Download App",
-          description: "Download the app from your device's app store",
-          icon: Download,
+          title: "Register Account",
+          description: "Contact us to open your system account",
+          icon: User,
         },
         {
           title: "Sign In",
-          description: "Sign in using your account credentials",
+          description: "Sign in from any browser or via the app",
           icon: Smartphone,
         },
         {
@@ -192,20 +215,20 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
         {
           name: "Ahmed Al Salem",
           role: "Fleet Manager",
-          content: "Great app that helped us save over 30% on fuel costs",
+          content: "Great system that helped us save over 30% on fuel costs and improve driver efficiency.",
           rating: 5,
         },
         {
           name: "Fatima Al Zahrani",
           role: "Operations Manager",
-          content: "Best investment we made to improve fleet efficiency",
+          content: "Best investment we made to improve fleet efficiency. The dashboard is user-friendly and comprehensive.",
           rating: 5,
         },
       ],
       cta: {
         title: "Get Started Now",
-        subtitle: "Download the app and experience advanced fleet management",
-        button: "Download Free App",
+        subtitle: "Join hundreds of companies managing their fleets smartly with ASNA AVL",
+        button: "Try System for Free",
       },
       footer: {
         copyright: "© 2024 ASNA AVL. All rights reserved",
@@ -219,8 +242,8 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
     <main className="min-h-screen bg-white">
       <Navbar />
 
-      {/* Hero Section - InstaPay Style */}
-      <section ref={heroRef} className="relative pt-20 min-h-screen flex items-center bg-gradient-to-br from-primary via-primary to-primary/95 overflow-hidden">
+      {/* Hero Section - System Showcase */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center bg-gradient-to-br from-primary via-primary to-primary/95 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
@@ -250,11 +273,11 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
                 transition={{ delay: 0.2 }}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8"
               >
-                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                <Award className="w-4 h-4 text-accent" />
                 <span className="text-sm font-medium">{activeContent.hero.badge}</span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-5xl lg:text-6xl font-black mb-6 leading-[1.1]">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1]">
                 {activeContent.hero.title}
                 <span className="block text-accent">{activeContent.hero.subtitle}</span>
               </h1>
@@ -263,29 +286,23 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
                 {activeContent.hero.description}
               </p>
 
-              {/* Download Buttons */}
+              {/* Action Buttons */}
               <div className="flex flex-wrap gap-4 mb-12">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-3 px-6 py-3 bg-white text-primary rounded-2xl font-bold hover:shadow-xl transition-all"
+                  className="flex items-center gap-3 px-8 py-4 bg-accent text-white rounded-2xl font-bold hover:shadow-xl transition-all"
                 >
-                  <Apple className="w-6 h-6" />
-                  <div className="text-start">
-                    <div className="text-xs opacity-70">Download on the</div>
-                    <div className="text-sm">App Store</div>
-                  </div>
+                  <Zap className="w-6 h-6" />
+                  <span>{activeContent.hero.cta}</span>
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all"
+                  className="flex items-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-2xl font-bold hover:bg-white/20 transition-all"
                 >
-                  <Play className="w-6 h-6" />
-                  <div className="text-start">
-                    <div className="text-xs opacity-70">Get it on</div>
-                    <div className="text-sm">Google Play</div>
-                  </div>
+                  <PlayCircle className="w-6 h-6" />
+                  <span>{isAr ? "مشاهدة فيديو" : "Watch Video"}</span>
                 </motion.button>
               </div>
 
@@ -303,99 +320,128 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
               </div>
             </motion.div>
 
-            {/* Right Content - App Mockup */}
+            {/* Right Content - Laptop Mockup */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9, x: 50 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.8, type: "spring" }}
               className="relative flex justify-center"
             >
-              <div className="relative">
-                {/* Floating Elements */}
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute -top-10 -left-10 z-20 bg-white/90 backdrop-blur-xl rounded-2xl p-3 shadow-xl hidden lg:block"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center">
-                      <Truck className="w-4 h-4 text-accent" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold">Active Vehicles</div>
-                      <div className="text-lg font-black">24</div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-                  className="absolute -bottom-10 -right-10 z-20 bg-white/90 backdrop-blur-xl rounded-2xl p-3 shadow-xl hidden lg:block"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                      <Fuel className="w-4 h-4 text-emerald-500" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold">Fuel Saved</div>
-                      <div className="text-lg font-black">-30%</div>
-                    </div>
-                  </div>
-                </motion.div>
-
-                {/* Phone Mockup */}
-                <div className="relative w-[280px] md:w-[320px]">
-                  <div className="absolute -inset-4 bg-accent/20 blur-2xl rounded-full" />
-                  <div className="relative bg-white rounded-[3rem] p-3 shadow-2xl">
-                    <div className="relative aspect-[9/19] rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800">
-                      <img 
-                        src="https://picsum.photos/seed/app-mockup/400/800" 
-                        alt="App Screenshot" 
-                        className="w-full h-full object-cover opacity-90"
-                        referrerPolicy="no-referrer"
-                      />
-                      {/* App UI Elements */}
-                      <div className="absolute top-0 left-0 right-0 p-4 bg-gradient-to-b from-black/50 to-transparent">
-                        <div className="flex items-center justify-between">
-                          <div className="w-8 h-8 rounded-full bg-accent" />
-                          <div className="text-white text-xs font-bold">Dashboard</div>
-                          <Bell className="w-5 h-5 text-white" />
-                        </div>
-                      </div>
-                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/50 to-transparent">
-                        <div className="bg-white/10 backdrop-blur-md rounded-xl p-3">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <div className="text-white text-xs">Vehicle #1234</div>
-                              <div className="text-white text-sm font-bold">Toyota Camry</div>
-                            </div>
-                            <MapPin className="w-5 h-5 text-accent" />
-                          </div>
-                        </div>
+              <div className="relative w-full max-w-2xl">
+                {/* Laptop Frame */}
+                <div className="relative bg-gray-800 rounded-t-3xl p-4 shadow-2xl border-x-8 border-t-8 border-gray-700">
+                  <div className="aspect-[16/10] bg-white rounded-lg overflow-hidden relative">
+                    <img 
+                      src="https://picsum.photos/seed/dashboard/1200/800" 
+                      alt="System Dashboard" 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                    {/* UI Overlay */}
+                    <div className="absolute inset-0 bg-black/10 backdrop-blur-[1px]" />
+                    <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
+                      <div className="w-32 h-8 bg-white/20 backdrop-blur-md rounded-lg" />
+                      <div className="flex gap-2">
+                        <div className="w-8 h-8 rounded-full bg-accent" />
+                        <div className="w-8 h-8 rounded-full bg-white/20" />
                       </div>
                     </div>
                   </div>
                 </div>
+                {/* Laptop Base */}
+                <div className="h-4 bg-gray-800 rounded-b-xl w-[110%] -ml-[5%] shadow-xl" />
+                <div className="h-2 bg-gray-900 rounded-b-3xl w-[40%] mx-auto shadow-inner" />
+
+                {/* Floating Mobile App */}
+                <motion.div
+                  animate={{ y: [0, -20, 0] }}
+                  transition={{ duration: 5, repeat: Infinity }}
+                  className="absolute -bottom-10 -right-10 w-32 md:w-48 bg-white rounded-3xl p-2 shadow-2xl border-4 border-gray-100 hidden md:block"
+                >
+                  <div className="aspect-[9/19] rounded-2xl overflow-hidden bg-gray-900">
+                    <img 
+                      src="https://picsum.photos/seed/mobile-app/400/800" 
+                      alt="Mobile App" 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-2 bg-white/50 rounded-full mt-2 animate-ping" />
-          </div>
-        </motion.div>
       </section>
 
-      {/* Features Section - InstaPay Style */}
-      <section className="py-24 bg-white">
+      {/* System Dashboard Section */}
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full mb-6">
+                <BarChart3 className="w-4 h-4 text-accent" />
+                <span className="text-accent text-sm font-bold uppercase tracking-wider">
+                  {activeContent.systemShowcase.subtitle}
+                </span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-black text-primary mb-6">
+                {activeContent.systemShowcase.title}
+              </h2>
+              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                {activeContent.systemShowcase.description}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {activeContent.systemShowcase.features.map((feature, index) => (
+                  <div key={index} className="flex items-center gap-3 bg-gray-50 p-4 rounded-xl border border-gray-100">
+                    <CheckCircle2 className="w-5 h-5 text-accent" />
+                    <span className="text-primary font-bold text-sm">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="relative">
+                <div className="absolute -inset-10 bg-accent/5 rounded-full blur-3xl" />
+                <img 
+                  src="https://picsum.photos/seed/laptop-usage/800/600" 
+                  alt="Laptop Usage" 
+                  className="relative rounded-3xl shadow-2xl border-8 border-white"
+                  referrerPolicy="no-referrer"
+                />
+                {/* Floating Stat Card */}
+                <motion.div
+                  animate={{ y: [0, 15, 0] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                  className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                      <TrendingUp className="w-6 h-6 text-emerald-600" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-500 font-medium">Efficiency Increase</div>
+                      <div className="text-2xl font-black text-primary">+45%</div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -404,12 +450,12 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-black text-primary mb-4">
-              {isAr ? "مميزات التطبيق" : "App Features"}
+              {isAr ? "مميزات النظام المتكاملة" : "Integrated System Features"}
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               {isAr 
-                ? "كل ما تحتاجه لإدارة أسطولك في تطبيق واحد"
-                : "Everything you need to manage your fleet in one app"}
+                ? "كل ما تحتاجه لإدارة أسطولك في منصة واحدة متطورة"
+                : "Everything you need to manage your fleet in one advanced platform"}
             </p>
           </motion.div>
 
@@ -423,66 +469,13 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="text-center group"
+                  className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100"
                 >
-                  <div className="w-20 h-20 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-5 group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
-                    <Icon className="w-10 h-10 text-accent group-hover:text-white transition-colors" />
+                  <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-accent group-hover:scale-110 transition-all duration-300">
+                    <Icon className="w-8 h-8 text-accent group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-xl font-bold text-primary mb-2">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-primary mb-3">{feature.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed">{feature.description}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-black text-primary mb-4">
-              {isAr ? "كيف يعمل التطبيق؟" : "How It Works?"}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {isAr 
-                ? "ثلاث خطوات بسيطة لبدء إدارة أسطولك"
-                : "Three simple steps to start managing your fleet"}
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {activeContent.howItWorks.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="relative text-center"
-                >
-                  <div className="relative mb-6">
-                    <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto shadow-lg border-2 border-accent/20">
-                      <Icon className="w-10 h-10 text-accent" />
-                    </div>
-                    {index < 2 && (
-                      <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-accent/30">
-                        <ArrowRight className="absolute -right-2 -top-2 w-4 h-4 text-accent/50" />
-                      </div>
-                    )}
-                    <div className="absolute -top-3 -right-3 w-8 h-8 bg-accent rounded-full flex items-center justify-center text-white font-bold text-sm">
-                      {index + 1}
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold text-primary mb-2">{step.title}</h3>
-                  <p className="text-gray-500">{step.description}</p>
                 </motion.div>
               );
             })}
@@ -542,53 +535,8 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-5xl font-black text-primary mb-4">
-              {isAr ? "ماذا يقول عملاؤنا" : "What Our Clients Say"}
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {activeContent.testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all"
-              >
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <p className="text-gray-600 text-lg leading-relaxed mb-6">"{testimonial.content}"</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
-                    <Users className="w-5 h-5 text-accent" />
-                  </div>
-                  <div>
-                    <div className="font-bold text-primary">{testimonial.name}</div>
-                    <div className="text-sm text-gray-500">{testimonial.role}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section - InstaPay Style */}
-      <section className="py-24 bg-gradient-to-br from-primary to-primary/90 relative overflow-hidden">
+      {/* CTA Section */}
+      <section className="py-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <motion.div
@@ -607,35 +555,20 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-8 py-4 bg-white text-primary rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
+                className="flex items-center gap-3 px-10 py-5 bg-accent text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
               >
-                <Download className="w-5 h-5" />
+                <Zap className="w-5 h-5" />
                 {activeContent.cta.button}
               </motion.button>
               <Link href={`/${lang}/contact`}>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-2xl font-bold text-lg border border-white/20 hover:bg-white/20 transition-all"
+                  className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white rounded-2xl font-bold text-lg border border-white/20 hover:bg-white/20 transition-all"
                 >
-                  {isAr ? "طلب عرض توضيحي" : "Request Demo"}
+                  {isAr ? "تواصل معنا" : "Contact Us"}
                 </motion.button>
               </Link>
-            </div>
-
-            <div className="mt-12 flex flex-wrap justify-center gap-8 text-white/60 text-sm">
-              <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4" />
-                <span>{isAr ? "بياناتك آمنة" : "Your data is secure"}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Cloud className="w-4 h-4" />
-                <span>{isAr ? "تحديثات مستمرة" : "Continuous updates"}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Headphones className="w-4 h-4" />
-                <span>{isAr ? "دعم فني 24/7" : "24/7 Support"}</span>
-              </div>
             </div>
           </motion.div>
         </div>

@@ -102,16 +102,17 @@ export const Navbar = () => {
   };
 
   return (
-    <motion.nav
-      ref={navbarRef}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg" 
-          : "bg-white border-b border-gray-200"
-      }`}
-    >
+    <div className="fixed top-0 left-0 right-0 z-50">
+      <motion.nav
+        ref={navbarRef}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        className={`transition-all duration-300 ${
+          scrolled 
+            ? "bg-white/95 backdrop-blur-xl border-b border-gray-200 shadow-lg" 
+            : "bg-white border-b border-gray-200"
+        }`}
+      >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo with animation */}
@@ -204,6 +205,7 @@ export const Navbar = () => {
 
           {/* Actions */}
           <div className="hidden lg:flex items-center gap-3">
+
             <button
               onClick={toggleLanguage}
               className="flex items-center gap-2 px-3 xl:px-4 py-2 rounded-xl border border-gray-300 hover:bg-gray-100 transition-all text-sm xl:text-base font-medium group cursor-pointer text-gray-700"
@@ -211,22 +213,34 @@ export const Navbar = () => {
               <Globe className="w-4 h-4 group-hover:rotate-12 transition-transform" />
               <span>{language === "ar" ? "English" : "العربية"}</span>
             </button>
-
-            <Link
-              href={pricingLink}
-              className="relative px-5 xl:px-6 py-2 rounded-xl bg-gradient-to-r from-accent to-accent/90 text-white font-semibold text-sm xl:text-base overflow-hidden group shadow-lg shadow-accent/25 cursor-pointer"
+            {/* Catchy Offers Button */}
+            <motion.div
+              animate={{ 
+                scale: [1, 1.05, 1],
+              }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
             >
-              <span className="relative z-10 flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                {t("nav.demo")}
-              </span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-accent/80 to-accent"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </Link>
+              <Link 
+                href="#offers" 
+                className="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-accent border border-accent/50 rounded-xl text-white font-bold text-sm relative overflow-hidden group shadow-lg shadow-accent/40 hover:shadow-accent/60 transition-all hover:scale-105 active:scale-95"
+              >
+                <span className="relative z-10 whitespace-nowrap">
+                  {language === "ar" ? "اكتشف عروضنا الجديدة والحصرية!" : "Discover our exclusive offers!"}
+                </span>
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                />
+                <motion.div
+                  className="absolute inset-0 border-2 border-white/20 rounded-xl"
+                  animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              </Link>
+            </motion.div>
+
+            
           </div>
 
           {/* Mobile Menu Button */}
@@ -343,6 +357,28 @@ export const Navbar = () => {
                   {t("nav.pricing")}
                 </Link>
 
+                {/* Offers Link (Mobile) */}
+                <Link
+                  href="#offers"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-4 py-3 rounded-xl bg-accent text-white font-bold transition-all relative overflow-hidden shadow-lg shadow-accent/30"
+                >
+                  <span className="flex items-center gap-2 relative z-10">
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    >
+                      <Sparkles className="w-4 h-4" />
+                    </motion.div>
+                    {language === "ar" ? "اكتشف عروضنا الجديدة والحصرية!" : "Discover our exclusive offers!"}
+                  </span>
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    animate={{ x: ['-100%', '200%'] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                  />
+                </Link>
+
                 {/* Language and Demo Buttons */}
                 <div className="pt-4 border-t border-gray-200 space-y-3">
                   <button
@@ -352,17 +388,6 @@ export const Navbar = () => {
                     <Globe className="w-4 h-4" />
                     <span>{language === "ar" ? "English" : "العربية"}</span>
                   </button>
-
-                  <Link
-                    href={pricingLink}
-                    onClick={() => setIsOpen(false)}
-                    className="block w-full px-4 py-3 rounded-xl bg-gradient-to-r from-accent to-accent/90 text-white font-semibold text-center shadow-lg shadow-accent/25 cursor-pointer"
-                  >
-                    <span className="flex items-center justify-center gap-2">
-                      <Sparkles className="w-4 h-4" />
-                      {t("nav.demo")}
-                    </span>
-                  </Link>
                 </div>
               </div>
             </div>
@@ -370,5 +395,6 @@ export const Navbar = () => {
         )}
       </AnimatePresence>
     </motion.nav>
+    </div>
   );
 };

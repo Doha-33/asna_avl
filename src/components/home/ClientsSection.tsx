@@ -13,15 +13,24 @@ export const ClientsSection = () => {
   useEffect(() => {
     const loadClients = async () => {
       const data = await fetchApi("/api/clients");
-      if (data) {
+      if (data && data.length > 0) {
         setClients(data);
+      } else {
+        // Mock data if API is empty
+        setClients([
+          { _id: "1", clientName: "Client 1", logo: "https://picsum.photos/seed/client1/200/200" },
+          { _id: "2", clientName: "Client 2", logo: "https://picsum.photos/seed/client2/200/200" },
+          { _id: "3", clientName: "Client 3", logo: "https://picsum.photos/seed/client3/200/200" },
+          { _id: "4", clientName: "Client 4", logo: "https://picsum.photos/seed/client4/200/200" },
+          { _id: "5", clientName: "Client 5", logo: "https://picsum.photos/seed/client5/200/200" },
+        ]);
       }
       setLoading(false);
     };
     loadClients();
   }, []);
 
-  if (loading || clients.length === 0) return null;
+  if (loading) return null;
 
   // Duplicate clients multiple times for seamless infinite scroll without gaps
   const duplicatedClients = [...clients, ...clients, ...clients, ...clients];

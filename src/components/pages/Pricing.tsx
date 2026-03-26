@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { fetchSettings, Settings } from "@/lib/api";
+import { fetchSettings, Settings, fetchApi, PricingItem, Product } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Truck, 
@@ -33,6 +33,9 @@ const PricingContent = () => {
   
   const [step, setStep] = useState(1);
   const [settings, setSettings] = useState<Settings | null>(null);
+  const [vehicleTypes, setVehicleTypes] = useState<PricingItem[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loadingData, setLoadingData] = useState(true);
   const [formData, setFormData] = useState({
     fleetSize: "",
     solutions: [] as string[],
@@ -47,11 +50,20 @@ const PricingContent = () => {
   });
 
   useEffect(() => {
-    const loadSettings = async () => {
-      const data = await fetchSettings();
-      if (data) setSettings(data);
+    const loadData = async () => {
+      setLoadingData(true);
+      const [settingsData, pricingData, productsData] = await Promise.all([
+        fetchSettings(),
+        fetchApi("/api/pricing"),
+        fetchApi("/api/products")
+      ]);
+      
+      if (settingsData) setSettings(settingsData);
+      if (pricingData) setVehicleTypes(pricingData);
+      if (productsData) setProducts(productsData);
+      setLoadingData(false);
     };
-    loadSettings();
+    loadData();
   }, []);
 
   const fleetSizes = [
@@ -72,7 +84,7 @@ const PricingContent = () => {
     { id: "notifications", label: language === "ar" ? "الإشعارات والمراسلة" : "Notifications & Messaging", sub: language === "ar" ? "الاتصالات" : "Communications", icon: <Bell /> },
   ];
 
-  const vehicleTypes = [
+  const fallbackVehicleTypes = [
     { id: "truck", label: language === "ar" ? "شاحنة" : "Truck", sub: language === "ar" ? "نقل ثقيل" : "Heavy Transport", icon: <Truck /> },
     { id: "car", label: language === "ar" ? "سيارة" : "Car", sub: language === "ar" ? "مركبات خفيفة" : "Light Vehicles", icon: <Car /> },
     { id: "van", label: language === "ar" ? "فان" : "Van", sub: language === "ar" ? "توصيل" : "Delivery", icon: <Truck /> },
@@ -266,31 +278,31 @@ ${formData.product ? `*المنتج المطلوب:* ${formData.product}` : ""}
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {vehicleTypes.map((item) => (
+                    {(vehicleTypes.length > 0 ? vehicleTypes : fallbackVehicleTypes).map((item) => (
                       <div 
-                        key={item.id}
-                        onClick={() => handleVehicleTypeSelect(item.id)}
+                        key={(item as any)._id || (item as any).id}
+                        onClick={() => handleVehicleTypeSelect((item as any)._id || (item as any).id)}
                         className={`p-6 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between ${
-                          formData.vehicleType === item.id 
+                          formData.vehicleType === ((item as any)._id || (item as any).id)
                             ? "border-primary bg-primary/5" 
                             : "border-gray-100 bg-white hover:border-primary/30"
                         }`}
                       >
                         <div className="flex items-center gap-4">
                           <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                            formData.vehicleType === item.id ? "bg-primary text-white" : "bg-gray-50 text-primary/40"
+                            formData.vehicleType === ((item as any)._id || (item as any).id) ? "bg-primary text-white" : "bg-gray-50 text-primary/40"
                           }`}>
-                            {item.icon}
+                            {(item as any).icon || <Car />}
                           </div>
                           <div className="text-start">
-                            <div className="font-bold text-lg">{item.label}</div>
-                            <div className="text-sm text-primary/60">{item.sub}</div>
+                            <div className="font-bold text-lg">{language === "ar" ? ((item as any).compoundsAr || (item as any).label) : ((item as any).compoundsEn || (item as any).label)}</div>
+                            <div className="text-sm text-primary/60">{(item as any).sub || (language === "ar" ? "نوع المركبة" : "Vehicle Type")}</div>
                           </div>
                         </div>
                         <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                          formData.vehicleType === item.id ? "border-primary" : "border-gray-200"
+                          formData.vehicleType === ((item as any)._id || (item as any).id) ? "border-primary" : "border-gray-200"
                         }`}>
-                          {formData.vehicleType === item.id && <div className="w-3 h-3 bg-primary rounded-full" />}
+                          {formData.vehicleType === ((item as any)._id || (item as any).id) && <div className="w-3 h-3 bg-primary rounded-full" />}
                         </div>
                       </div>
                     ))}
@@ -410,14 +422,17 @@ ${formData.product ? `*المنتج المطلوب:* ${formData.product}` : ""}
                         <label className="text-sm font-bold">
                           {language === "ar" ? "المنتج المطلوب (اختياري)" : "Requested Product (Optional)"}
                         </label>
-                        <input 
+                        <select 
                           name="product" 
                           value={formData.product} 
                           onChange={handleInputChange} 
-                          type="text" 
-                          placeholder={language === "ar" ? "مثال: جهاز تتبع G10" : "e.g. G10 Tracking Device"} 
-                          className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:border-primary outline-none transition-all" 
-                        />
+                          className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 focus:border-primary outline-none transition-all"
+                        >
+                          <option value="">{language === "ar" ? "اختر منتجاً" : "Select a product"}</option>
+                          {products.map((p) => (
+                            <option key={p._id} value={p.name}>{p.name}</option>
+                          ))}
+                        </select>
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
