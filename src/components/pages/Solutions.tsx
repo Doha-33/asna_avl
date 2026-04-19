@@ -29,6 +29,9 @@ import {
   Gauge,
   Camera,
   Lock,
+  Bell,
+  Cloud,
+  FileText,
 } from "lucide-react";
 import Image from "next/image";
 import { CTASection } from "../home/CTASection";
@@ -209,51 +212,51 @@ export default function SolutionsPage() {
           ],
         },
         {
-          title: "حلول اللوجستيات المتكاملة",
+          title: "نظام النقل - هيئة الغذاء والدواء",
           description:
-            "منصة شاملة لإدارة عمليات التوصيل والخدمات اللوجستية مع تتبع الشحنات في الوقت الفعلي وتحسين المسارات وتقليل وقت التسليم بنسبة 25%.",
+            "حل متخصص ومتوافق مع متطلبات هيئة الغذاء والدواء لنقل المواد الغذائية والأدوية، مع مراقبة درجة الحرارة والرطوبة وتتبع الشحنات لحظة بلحظة.",
           icon: Package,
           features: [
+            "مراقبة درجة الحرارة والرطوبة",
+            "توافق كامل مع معايير هيئة الغذاء والدواء",
             "تتبع الشحنات لحظياً",
-            "تحسين المسارات الذكي",
-            "إدارة المندوبين والطلبات",
-            "تحليلات أداء العمليات",
+            "تقارير الامتثال التلقائية",
           ],
         },
         {
-          title: "نظام تأجير السيارات المتكامل",
+          title: "نقل الشاحنات - نقل عادي",
           description:
-            "حل متكامل لإدارة عقود التأجير وتتبع المركبات مع ربط مباشر بمنصة تم (TAM) وأتمتة كاملة للعمليات.",
+            "حل متكامل لإدارة نقل الشاحنات العادية مع تتبع دقيق للمسارات وتحليل أداء السائقين وتحسين كفاءة النقل.",
+          icon: Truck,
+          features: [
+            "تتبع الشاحنات لحظياً",
+            "إدارة الأحمال والحمولات",
+            "تحسين المسارات للنقل العادي",
+            "تقارير أداء الأسطول",
+          ],
+        },
+        {
+          title: "نقل الشاحنات - ساطحة",
+          description:
+            "حل متخصص لنقل الشاحنات على سطحات (ساطحة) مع تتبع دقيق للمسافات الطويلة ومراقبة سلامة الحمولة وتوثيق عمليات النقل.",
+          icon: Truck,
+          features: [
+            "تتبع المسافات الطويلة بدقة",
+            "مراقبة سلامة الحمولة",
+            "توثيق عمليات النقل",
+            "تحليل كفاءة النقل بالسطحة",
+          ],
+        },
+        {
+          title: "نظام التأجير الخفي",
+          description:
+            "نظام متطور لإدارة عقود التأجير الخفي وتتبع المركبات المؤجرة مع ربط مباشر بمنصة تم (TAM) وتقارير أداء متقدمة.",
           icon: Key,
           features: [
-            "إدارة العقود والفواتير",
+            "إدارة العقود الخفية",
             "تتبع المركبات المؤجرة",
-            "ربط مع منصة تم",
-            "تقارير الأداء المالي",
-          ],
-        },
-        {
-          title: "منصة وصل المتكاملة",
-          description:
-            "ربط معتمد ومباشر مع منصة وصل التابعة للهيئة العامة للنقل لضمان الامتثال الكامل للأنظمة والتقارير الحكومية.",
-          icon: ShieldCheck,
-          features: [
-            "ربط معتمد مع وصل",
-            "تحديثات فورية للبيانات",
-            "تقارير امتثال تلقائية",
-            "توافق كامل مع أنظمة النقل",
-          ],
-        },
-        {
-          title: "التحليلات والذكاء الاصطناعي",
-          description:
-            "منصة تحليلات متقدمة تستخدم الذكاء الاصطناعي لتقديم رؤى تنبؤية وتحسين أداء الأسطول وتقليل التكاليف التشغيلية.",
-          icon: BarChart3,
-          features: [
-            "تحليلات تنبؤية",
-            "تقارير ذكاء الأعمال",
-            "تحسين الأداء",
-            "توقع الأعطال",
+            "ربط مع منصة تم (TAM)",
+            "تقارير أداء مالية متقدمة",
           ],
         },
       ],
@@ -281,6 +284,26 @@ export default function SolutionsPage() {
             title: "خرائط عالية الدقة",
             desc: "دعم الخرائط المحلية والعالمية مع تحديثات حركة المرور الفورية وتوجيه المسارات الذكي.",
             icon: MapPin,
+          },
+          {
+            title: "لوحات تحكم مخصصة",
+            desc: "لوحات تحكم قابلة للتخصيص تعرض المؤشرات الحيوية والتقارير الأكثر أهمية لعملك.",
+            icon: BarChart3,
+          },
+          {
+            title: "تنبيهات وإشعارات ذكية",
+            desc: "نظام تنبيهات متطور عبر البريد الإلكتروني والرسائل القصيرة والإشعارات داخل التطبيق.",
+            icon: Bell,
+          },
+          {
+            title: "تقارير وتحليلات متقدمة",
+            desc: "تقارير تفاعلية قابلة للتصدير بصيغ متعددة مع تحليلات تنبؤية وتوصيات ذكية.",
+            icon: FileText,
+          },
+          {
+            title: "نسخ احتياطي واستعادة بيانات",
+            desc: "نظام نسخ احتياطي تلقائي على السحابة مع إمكانية استعادة البيانات بسهولة وأمان.",
+            icon: Cloud,
           },
         ],
       },
@@ -373,51 +396,51 @@ export default function SolutionsPage() {
           ],
         },
         {
-          title: "Integrated Logistics Solutions",
+          title: "Transport System - SFDA",
           description:
-            "Comprehensive platform for delivery and logistics operations with real-time shipment tracking, route optimization, and 25% reduction in delivery time.",
+            "Specialized solution compliant with Saudi Food and Drug Authority requirements for transporting food and medicine, with temperature and humidity monitoring and real-time shipment tracking.",
           icon: Package,
           features: [
+            "Temperature and humidity monitoring",
+            "Full SFDA standards compliance",
             "Real-time shipment tracking",
-            "Smart route optimization",
-            "Courier and order management",
-            "Operational performance analytics",
+            "Automated compliance reports",
           ],
         },
         {
-          title: "Car Rental Management System",
+          title: "Truck Transport - Standard",
           description:
-            "Integrated system for managing rental contracts and vehicle tracking with direct TAM platform integration and fully automated operations.",
+            "Integrated solution for standard truck transport management with accurate route tracking, driver performance analysis, and transport efficiency optimization.",
+          icon: Truck,
+          features: [
+            "Real-time truck tracking",
+            "Load and cargo management",
+            "Route optimization for standard transport",
+            "Fleet performance reports",
+          ],
+        },
+        {
+          title: "Truck Transport - Flatbed",
+          description:
+            "Specialized solution for flatbed truck transport with accurate long-distance tracking, cargo safety monitoring, and transport operation documentation.",
+          icon: Truck,
+          features: [
+            "Long-distance accurate tracking",
+            "Cargo safety monitoring",
+            "Transport operation documentation",
+            "Flatbed transport efficiency analysis",
+          ],
+        },
+        {
+          title: "Hidden Leasing System",
+          description:
+            "Advanced system for managing hidden leasing contracts and rented vehicle tracking with direct TAM platform integration and advanced performance reports.",
           icon: Key,
           features: [
-            "Contract and invoice management",
-            "Rental vehicle tracking",
+            "Hidden contract management",
+            "Rented vehicle tracking",
             "TAM platform integration",
-            "Financial performance reports",
-          ],
-        },
-        {
-          title: "WASL Platform Integration",
-          description:
-            "Certified direct integration with the Transport Authority's WASL platform ensuring full regulatory compliance and government reporting.",
-          icon: ShieldCheck,
-          features: [
-            "Certified WASL integration",
-            "Real-time data updates",
-            "Automated compliance reports",
-            "Full transport system compatibility",
-          ],
-        },
-        {
-          title: "AI Analytics Platform",
-          description:
-            "Advanced analytics platform using artificial intelligence to provide predictive insights, optimize fleet performance, and reduce operational costs.",
-          icon: BarChart3,
-          features: [
-            "Predictive analytics",
-            "Business intelligence reports",
-            "Performance optimization",
-            "Failure prediction",
+            "Advanced financial performance reports",
           ],
         },
       ],
@@ -445,6 +468,26 @@ export default function SolutionsPage() {
             title: "High-Precision Maps",
             desc: "Support for local and global maps with real-time traffic updates and intelligent route guidance.",
             icon: MapPin,
+          },
+          {
+            title: "Customizable Dashboards",
+            desc: "Customizable dashboards displaying the most important KPIs and reports for your business.",
+            icon: BarChart3,
+          },
+          {
+            title: "Smart Alerts & Notifications",
+            desc: "Advanced alert system via email, SMS, and in-app notifications.",
+            icon: Bell,
+          },
+          {
+            title: "Advanced Reports & Analytics",
+            desc: "Interactive exportable reports with predictive analytics and intelligent recommendations.",
+            icon: FileText,
+          },
+          {
+            title: "Data Backup & Recovery",
+            desc: "Automatic cloud backup system with easy and secure data recovery capabilities.",
+            icon: Cloud,
           },
         ],
       },
@@ -832,7 +875,7 @@ export default function SolutionsPage() {
             >
               <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://picsum.photos/seed/systems/800/1000"
+                  src="/manasa.jpg"
                   alt="ASNA AVL Platform Dashboard"
                   width={800}
                   height={1000}

@@ -21,9 +21,9 @@ export default function HomePage({ lang = "ar" }: { lang?: "ar" | "en" }) {
       <Navbar />
       <Hero />
       <AboutSection />
+      <CertificatesSection />
       <FeaturedProducts />
       <ClientsSection />
-      <CertificatesSection />
       <PricingSection />
       <OffersSection />
       <BlogSection />

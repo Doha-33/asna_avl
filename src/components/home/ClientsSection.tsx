@@ -2,13 +2,15 @@
 
 import { useLanguage } from "../LanguageContext";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { fetchApi, Client } from "@/lib/api";
 
 export const ClientsSection = () => {
   const { language } = useLanguage();
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
+  const [marqueeWidth, setMarqueeWidth] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const loadClients = async () => {
@@ -30,14 +32,34 @@ export const ClientsSection = () => {
     loadClients();
   }, []);
 
+  // Calculate total width after clients are loaded
+  useEffect(() => {
+    if (contentRef.current && clients.length > 0) {
+      const updateWidth = () => {
+        if (contentRef.current) {
+          setMarqueeWidth(contentRef.current.scrollWidth / 3);
+        }
+      };
+      
+      updateWidth();
+      window.addEventListener('resize', updateWidth);
+      return () => window.removeEventListener('resize', updateWidth);
+    }
+  }, [clients]);
+
   if (loading) return null;
 
-  // Duplicate clients multiple times for seamless infinite scroll without gaps
-  const duplicatedClients = [...clients, ...clients, ...clients, ...clients];
+  // Create 3 copies for seamless loop
+  const duplicatedClients = [...clients, ...clients, ...clients];
+  
+  // تحديد اتجاه الحركة حسب اللغة
+  const isRTL = language === "ar";
+  const animateDirection = marqueeWidth 
+    ? (isRTL ? [0, marqueeWidth] : [0, -marqueeWidth])
+    : (isRTL ? [0, "33.33%"] : [0, "-33.33%"]);
 
   return (
-    <section className="relative py-20 bg-gradient-to-b from-white to-secondary/30 overflow-hidden"
-    >
+    <section className="relative py-20 bg-gradient-to-b from-white to-secondary/30 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 z-0 opacity-30 pointer-events-none">
         <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-accent/5 blur-[100px] rounded-full" />
@@ -64,45 +86,60 @@ export const ClientsSection = () => {
 
         {/* Logo Marquee - Seamless Infinite Scroll */}
         <div className="relative overflow-hidden py-8">
-          {/* Gradient Overlays */}
-          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+          {/* Gradient Overlays - عكس الاتجاه للغة العربية */}
+          <div className={`absolute inset-y-0 ${isRTL ? 'right-0' : 'left-0'} w-32 bg-gradient-to-${isRTL ? 'l' : 'r'} from-white via-white/80 to-transparent z-10 pointer-events-none`} />
+          <div className={`absolute inset-y-0 ${isRTL ? 'left-0' : 'right-0'} w-32 bg-gradient-to-${isRTL ? 'r' : 'l'} from-white via-white/80 to-transparent z-10 pointer-events-none`} />
           
           <motion.div
             animate={{
-              x: ["0%", "-25%"],
+              x: animateDirection,
             }}
             transition={{
               x: {
-                duration: 25,
+                duration: Math.max(30, clients.length * 1.5),
                 repeat: Infinity,
                 ease: "linear",
                 repeatType: "loop",
               },
             }}
-            className="flex gap-16 items-center"
-            style={{ width: "fit-content" }}
+            className="flex gap-8 items-center"
+            style={{ 
+              width: "fit-content",
+              display: "flex",
+              flexWrap: "nowrap"
+            }}
           >
-            {duplicatedClients.map((client, idx) => (
-              <motion.div
-                key={`${client._id}-${idx}`}
-                className="flex-shrink-0 inline-flex flex-col items-center justify-center gap-3 px-6"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              >
-                <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center transition-all duration-300">
-                  <img
-                    src={client.logo}
-                    alt={client.clientName}
-                    className="max-w-full max-h-full object-contain transition-transform duration-300"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <span className="text-sm font-medium text-primary/50 hover:text-primary/80 transition-colors duration-300">
-                  {client.clientName}
-                </span>
-              </motion.div>
-            ))}
+            <div 
+              ref={contentRef}
+              className="flex gap-8 items-center"
+              style={{ flexShrink: 0 }}
+            >
+              {duplicatedClients.map((client, idx) => (
+                <motion.div
+                  key={`${client._id}-${idx}`}
+                  className="flex-shrink-0 inline-flex flex-col items-center justify-center gap-3"
+                  style={{ 
+                    minWidth: "120px",
+                    width: "auto"
+                  }}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                >
+                  <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center transition-all duration-300">
+                    <img
+                      src={client.logo}
+                      alt={client.clientName}
+                      className="max-w-full max-h-full object-contain transition-transform duration-300"
+                      referrerPolicy="no-referrer"
+                      style={{ display: "block" }}
+                    />
+                  </div>
+                  <span className="text-sm font-medium text-primary/50 whitespace-nowrap hover:text-primary/80 transition-colors duration-300">
+                    {client.clientName}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
 

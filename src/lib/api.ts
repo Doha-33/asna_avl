@@ -1,4 +1,4 @@
-const BASE_URL = "https://fletobackend.onrender.com";
+const BASE_URL = "http://187.124.221.44:3000";
 
 export async function fetchApi(endpoint: string, timeout = 30000) {
   const controller = new AbortController();
@@ -44,6 +44,7 @@ export interface Post {
   contentAr: string;
   contentEn: string;
   image: string;
+  authorName: string;
   userId: {
     _id: string;
     nameEn: string;

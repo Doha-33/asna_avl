@@ -271,13 +271,13 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mt-4 mb-4"
               >
                 <Award className="w-4 h-4 text-accent" />
                 <span className="text-sm font-medium">{activeContent.hero.badge}</span>
               </motion.div>
 
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1]">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-[1.1]">
                 {activeContent.hero.title}
                 <span className="block text-accent">{activeContent.hero.subtitle}</span>
               </h1>
@@ -332,7 +332,7 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
                 <div className="relative bg-gray-800 rounded-t-3xl p-4 shadow-2xl border-x-8 border-t-8 border-gray-700">
                   <div className="aspect-[16/10] bg-white rounded-lg overflow-hidden relative">
                     <img 
-                      src="https://picsum.photos/seed/dashboard/1200/800" 
+                      src="/x.jpg" 
                       alt="System Dashboard" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -360,7 +360,7 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
                 >
                   <div className="aspect-[9/19] rounded-2xl overflow-hidden bg-gray-900">
                     <img 
-                      src="https://picsum.photos/seed/mobile-app/400/800" 
+                      src="/app.jpg" 
                       alt="Mobile App" 
                       className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
@@ -413,7 +413,7 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
               <div className="relative">
                 <div className="absolute -inset-10 bg-accent/5 rounded-full blur-3xl" />
                 <img 
-                  src="https://picsum.photos/seed/laptop-usage/800/600" 
+                  src="/c.jpg" 
                   alt="Laptop Usage" 
                   className="relative rounded-3xl shadow-2xl border-8 border-white"
                   referrerPolicy="no-referrer"
@@ -524,7 +524,7 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
               <div className="relative max-w-sm mx-auto">
                 <div className="absolute -inset-4 bg-accent/10 rounded-3xl blur-2xl" />
                 <img 
-                  src="https://picsum.photos/seed/security/400/500" 
+                  src="/v.jpg" 
                   alt="Security" 
                   className="relative rounded-2xl shadow-xl"
                   referrerPolicy="no-referrer"
@@ -534,46 +534,6 @@ export default function AppPage({ lang = "ar" }: { lang?: "ar" | "en" }) {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-24 bg-primary relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
-        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
-              {activeContent.cta.title}
-            </h2>
-            <p className="text-xl text-white/80 mb-10">
-              {activeContent.cta.subtitle}
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-3 px-10 py-5 bg-accent text-white rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all"
-              >
-                <Zap className="w-5 h-5" />
-                {activeContent.cta.button}
-              </motion.button>
-              <Link href={`/${lang}/contact`}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white rounded-2xl font-bold text-lg border border-white/20 hover:bg-white/20 transition-all"
-                >
-                  {isAr ? "تواصل معنا" : "Contact Us"}
-                </motion.button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       <Footer />
     </main>
   );
