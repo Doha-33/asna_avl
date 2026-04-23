@@ -1,4 +1,4 @@
-const BASE_URL = "http://187.124.221.44:3000";
+const BASE_URL = "https://fletobackend.onrender.com";
 
 export async function fetchApi(endpoint: string, timeout = 30000) {
   const controller = new AbortController();
