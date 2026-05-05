@@ -22,17 +22,21 @@ export async function fetchApi(endpoint: string, timeout = 30000) {
 
 export interface Settings {
   _id: string;
-  whatsapp: string;
-  instagram: string;
-  facebook: string;
-  youtube: string;
+  whatsapp: string | "966564924011";
+  instagram: string | "https://www.instagram.com/itrack.sa/";
+  facebook: string | "https://www.facebook.com/itrack.sa";
+  youtube: string | "https://www.youtube.com/@itracksa";
   aboutUsAr: string;
   aboutUsEn: string;
-  phoneNumber: string;
+  phoneNumber: string | "96656924011";
 }
 
 export async function fetchSettings(): Promise<Settings | null> {
-  return fetchApi("/api/settings/69b2085ce91f34256c8fa88e");
+  const data = await fetchApi("/api/settings/69ebc66c0e7d946a7fffb194");
+  if (Array.isArray(data)) {
+    return data.length > 0 ? data[0] : null;
+  }
+  return data;
 }
 
 export interface Post {

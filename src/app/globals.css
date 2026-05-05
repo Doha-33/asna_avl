@@ -2,9 +2,9 @@
 
 @theme {
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --color-primary: #191C49;   /* Navy Dark */
-  --color-secondary: #F8FAFC; /* Light Slate/White */
-  --color-accent: #406E92;    /* Blue/Accent */
+  --color-primary: #191C49;
+  --color-secondary: #F8FAFC;
+  --color-accent: #406E92;
 }
 
 /* Custom Colors & Glass Effect */

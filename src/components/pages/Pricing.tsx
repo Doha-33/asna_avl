@@ -130,7 +130,7 @@ ${formData.product ? `*المنتج المطلوب:* ${formData.product}` : ""}
 *المصدر:* ${formData.source}
     `.trim();
 
-    const whatsappNumber = settings?.whatsapp?.replace(/\+/g, "") || "201028757002";
+    const whatsappNumber = settings?.whatsapp?.replace(/\+/g, "") || "966564924011";
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
     window.open(whatsappUrl, "_blank");

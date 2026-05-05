@@ -19,8 +19,20 @@ import { LanguageProvider, useLanguage } from "@/components/LanguageContext";
 import { use } from "react";
 import Link from "next/link";
 
+import { useState, useEffect } from "react";
+import { fetchSettings, Settings } from "@/lib/api";
+
 const ContactContent = () => {
   const { language } = useLanguage();
+  const [settings, setSettings] = useState<Settings | null>(null);
+
+  useEffect(() => {
+    const loadSettings = async () => {
+      const data = await fetchSettings();
+      if (data) setSettings(data);
+    };
+    loadSettings();
+  }, []);
 
   const contactInfo = [
     {
@@ -29,7 +41,7 @@ const ContactContent = () => {
           ? "المبيعات والاستفسارات العامة"
           : "Sales & General Inquiries",
       email: "sales@asnaavl.sa",
-      phone: "01028757002",
+      phone: settings?.phoneNumber || "966564924011",
       icon: <Mail className="text-accent" />,
     },
     {
@@ -43,7 +55,7 @@ const ContactContent = () => {
     {
       title: language === "ar" ? "دعم العملاء" : "Customer Support",
       email: "customers@asnaavl.sa",
-      whatsapp: "01028757002",
+      whatsapp: settings?.whatsapp || "966564924011",
       icon: <MessageSquare className="text-accent" />,
     },
   ];

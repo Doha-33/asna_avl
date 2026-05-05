@@ -15,7 +15,7 @@ export const OffersSection = () => {
   const [selectedOffer, setSelectedOffer] = useState<Offer | null>(null);
   const [formData, setFormData] = useState({ name: "", phone: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [whatsappNumber, setWhatsappNumber] = useState("201012345678");
+  const [whatsappNumber, setWhatsappNumber] = useState("966564924011");
 
   useEffect(() => {
     const loadData = async () => {
@@ -229,7 +229,7 @@ export const OffersSection = () => {
                         onClick={() => setSelectedOffer(offer)}
                         className="inline-flex items-center gap-1 text-sm font-bold text-accent hover:text-primary transition-colors group/link"
                       >
-                        <span>{language === "ar" ? "اعرف المزيد" : "Learn more"}</span>
+                        <span>{language === "ar" ? "احصل على العرض" : "Get the Offer"}</span>
                         <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
                       </button>
                     </div>

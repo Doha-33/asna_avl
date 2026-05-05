@@ -35,7 +35,7 @@ export const ContactSection = () => {
       ? `*طلب تواصل جديد من موقع ASNA AVL*\n\n*الاسم:* ${formData.name}\n*الهاتف:* ${formData.phone}\n*السؤال:* ${formData.question}\n\n*يرجى الرد على العميل في أقرب وقت*`
       : `*New Contact Request from ASNA AVL Website*\n\n*Name:* ${formData.name}\n*Phone:* ${formData.phone}\n*Question:* ${formData.question}\n\n*Please respond to the client as soon as possible*`;
     
-    const whatsappNumber = settings?.whatsapp?.replace(/\D/g, '') || "201028757002";
+    const whatsappNumber = settings?.whatsapp?.replace(/\D/g, '') || "966564924011";
     
     setTimeout(() => {
       window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, "_blank");
@@ -67,7 +67,7 @@ export const ContactSection = () => {
     {
       icon: MapPin,
       title: language === "ar" ? "موقعنا" : "Our Location",
-      value: language === "ar" ? "الرياض، المملكة العربية السعودية" : "Riyadh, Saudi Arabia",
+      value: language === "ar" ? "الخبر، المنطقة الشرقية، المملكة العربية السعودية" : "Al-Ahsa, Al-Kalabiyyah, Eastern Province, Saudi Arabia",
       bgColor: "bg-purple-50",
       iconColor: "text-purple-600",
       hoverBg: "hover:bg-purple-50/80"
@@ -75,7 +75,7 @@ export const ContactSection = () => {
     {
       icon: Clock,
       title: language === "ar" ? "ساعات العمل" : "Working Hours",
-      value: language === "ar" ? "الأحد - الخميس: 9 ص - 6 م" : "Sun - Thu: 9 AM - 6 PM",
+      value: language === "ar" ? "من السبت إلى الجمعة: 8 صباحاً - 9 مساءً" : "Sat - Fri: 8am - 9pm",
       bgColor: "bg-emerald-50",
       iconColor: "text-emerald-600",
       hoverBg: "hover:bg-emerald-50/80"

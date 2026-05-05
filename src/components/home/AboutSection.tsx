@@ -3,70 +3,74 @@
 import { CheckCircle2, ShieldCheck, Truck, Wrench, Zap } from "lucide-react";
 import { useLanguage } from "../LanguageContext";
 import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import { useInView } from "react-intersection-observer";
+
+// Component for animated counter
+const AnimatedCounter = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
+  const [count, setCount] = useState(0);
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.3,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      let start = 0;
+      const duration = 2000;
+      const increment = target / (duration / 16);
+      
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= target) {
+          setCount(target);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(start));
+        }
+      }, 16);
+      
+      return () => clearInterval(timer);
+    }
+  }, [inView, target]);
+
+  return (
+    <div ref={ref} className="text-4xl md:text-5xl font-bold mb-2" style={{ color: "white" }}>
+      +{count.toLocaleString()}{suffix}
+    </div>
+  );
+};
 
 export const AboutSection = () => {
   const { language } = useLanguage();
 
-  const whyChooseUs = [
-    {
-      title:
-        language === "ar" ? "ضمان ذهبي خمس سنوات" : "5-Year Golden Guarantee",
-      desc:
-        language === "ar"
-          ? "نقدم ضماناً شاملاً لمدة 5 سنوات على جميع أجهزتنا."
-          : "We offer a comprehensive 5-year guarantee on all our devices.",
-      icon: <ShieldCheck className="text-accent" />,
-    },
-    {
-      title: language === "ar" ? "التركيب في موقعك" : "On-site Installation",
-      desc:
-        language === "ar"
-          ? "فريقنا يصل إليك أينما كنت لتركيب الأجهزة باحترافية."
-          : "Our team comes to you wherever you are to install devices professionally.",
-      icon: <Truck className="text-accent" />,
-    },
-    {
-      title:
-        language === "ar" ? "استبدال برسم رمزي" : "Symbolic Replacement Fee",
-      desc:
-        language === "ar"
-          ? "في حالة عطل الجهاز بعد الخمس سنوات يتم استبداله برسوم رمزية."
-          : "In case of device failure after 5 years, it is replaced for a symbolic fee.",
-      icon: <Zap className="text-accent" />,
-    },
-    {
-      title: language === "ar" ? "سهولة النقل" : "Easy Transfer",
-      desc:
-        language === "ar"
-          ? "يمكن نقل الجهاز من سيارة إلى سيارة أخرى بسهولة تامة."
-          : "The device can be easily transferred from one car to another.",
-      icon: <Wrench className="text-accent" />,
-    },
-  ];
-
   return (
     <section
-      className="py-24 bg-secondary overflow-hidden"
+      className="py-24 relative overflow-hidden"
       style={{
-        backgroundImage: "url('/bg6.jpg')",
-        backgroundRepeat: "repeat",
-        backgroundPosition: "center",
-        backgroundColor: "rgba(255, 255, 255, 0.7)",
-        backgroundBlendMode: "overlay",
+        backgroundColor: "var(--color-primary)",
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Animated background particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-[100px] animate-pulse" style={{ backgroundColor: "var(--color-accent)", opacity: 0.15 }} />
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full blur-[100px] animate-pulse delay-700" style={{ backgroundColor: "var(--color-accent)", opacity: 0.1 }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px]" style={{ backgroundColor: "var(--color-accent)", opacity: 0.08 }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          {/* Left side content */}
           <div className="text-start">
-            <div className="inline-block px-4 py-2 rounded-full bg-accent/10 text-accent font-bold text-sm mb-6">
+            <div className="inline-block px-4 py-2 rounded-full font-bold text-sm mb-6 backdrop-blur-sm" style={{ backgroundColor: "var(--color-accent)", color: "white", opacity: 0.9 }}>
               {language === "ar" ? "نبذة عنا" : "About Us"}
             </div>
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-8 leading-tight" style={{ color: "white" }}>
               {language === "ar"
                 ? "ASNA AVL هي شركة تكنولوجيا سعودية رائدة في حلول إدارة الأسطول"
                 : "ASNA AVL is a leading Saudi technology company in fleet management solutions"}
             </h2>
-            <div className="space-y-6 text-lg text-primary/70 leading-relaxed">
+            <div className="space-y-6 text-lg leading-relaxed" style={{ color: "rgba(255, 255, 255, 0.7)" }}>
               <p>
                 {language === "ar"
                   ? "تأسست ASNA AVL في عام 2018، وتختص في تتبع المركبات وتقنية المعلومات. نقدم حلول إدارة الأسطول المتكاملة التي تساعدك على متابعة مركباتك بكفاءة وتقليل الوقت والتكاليف، عبر منصة واحدة سهلة الاستخدام."
@@ -79,39 +83,68 @@ export const AboutSection = () => {
               </p>
             </div>
 
+            {/* Animated Stats */}
             <div className="grid grid-cols-2 gap-8 mt-12">
-              <div>
-                <div className="text-3xl font-bold text-accent mb-2">
-                  +4,500
-                </div>
-                <div className="text-sm text-primary/60">
+              <div className="rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105" style={{ backgroundColor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(8px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+                <AnimatedCounter target={4500} />
+                <div className="text-sm" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
                   {language === "ar" ? "عميل يثق بنا" : "Trusted Clients"}
                 </div>
               </div>
-              <div>
-                <div className="text-3xl font-bold text-accent mb-2">
-                  +18,000
-                </div>
-                <div className="text-sm text-primary/60">
+              <div className="rounded-2xl p-6 text-center transition-all duration-300 hover:scale-105" style={{ backgroundColor: "rgba(255, 255, 255, 0.05)", backdropFilter: "blur(8px)", border: "1px solid rgba(255, 255, 255, 0.1)" }}>
+                <AnimatedCounter target={18000} />
+                <div className="text-sm" style={{ color: "rgba(255, 255, 255, 0.6)" }}>
                   {language === "ar" ? "جهاز مفعل" : "Active Devices"}
                 </div>
               </div>
             </div>
+
           </div>
 
+          {/* Right side - Map with animations */}
           <div className="relative">
-            <div className="absolute -inset-10 bg-accent/20 blur-[100px] rounded-full" />
+            <div className="absolute -inset-10 rounded-full blur-[100px] animate-pulse" style={{ backgroundColor: "var(--color-accent)", opacity: 0.2 }} />
+            <div className="absolute -inset-20 rounded-full blur-[80px] animate-pulse delay-1000" style={{ backgroundColor: "var(--color-accent)", opacity: 0.1 }} />
+            
             <img
               src="/map.png"
               alt="Saudi Arabia Map"
-              className="relative z-10 w-full h-auto transition-all duration-700"
+              className="relative z-10 w-full h-auto transition-all duration-700 drop-shadow-2xl"
               referrerPolicy="no-referrer"
             />
 
             {/* Pulsing dots on map */}
-            <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-accent rounded-full animate-ping z-20" />
-            <div className="absolute top-1/3 left-1/3 w-3 h-3 bg-accent rounded-full animate-ping z-20 delay-700" />
-            <div className="absolute bottom-1/4 right-1/4 w-3 h-3 bg-accent rounded-full animate-ping z-20 delay-1000" />
+            <div className="absolute top-1/2 left-1/2">
+              <div className="relative">
+                <div className="w-4 h-4 rounded-full animate-ping absolute" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-4 h-4 rounded-full animate-pulse absolute" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+              </div>
+            </div>
+            
+            <div className="absolute top-1/3 left-1/3">
+              <div className="relative">
+                <div className="w-3 h-3 rounded-full animate-ping absolute delay-300" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-3 h-3 rounded-full animate-pulse delay-300 absolute" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+              </div>
+            </div>
+            
+            <div className="absolute bottom-1/4 right-1/4">
+              <div className="relative">
+                <div className="w-3 h-3 rounded-full animate-ping absolute delay-700" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-3 h-3 rounded-full animate-pulse delay-700 absolute" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+              </div>
+            </div>
+
+            <div className="absolute top-2/3 right-1/3">
+              <div className="relative">
+                <div className="w-2 h-2 rounded-full animate-ping absolute delay-1000" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-2 h-2 rounded-full animate-pulse delay-1000 absolute" style={{ backgroundColor: "var(--color-accent)" }} />
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

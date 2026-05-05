@@ -2,11 +2,25 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ShoppingCart, ArrowRight, ArrowLeft, Package, Sparkles, TrendingUp, Eye, Heart, Star } from "lucide-react";
+import {
+  ShoppingCart,
+  ArrowRight,
+  ArrowLeft,
+  Package,
+  Sparkles,
+  TrendingUp,
+  Eye,
+  Heart,
+  Star,
+  MessageCircle,
+} from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
+
 import { useLanguage } from "../LanguageContext";
 import { fetchApi, MainCategory, Product } from "@/lib/api";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { fetchSettings, Settings } from "@/lib/api";
 
 export const FeaturedProducts = () => {
   const { language } = useLanguage();
@@ -14,34 +28,36 @@ export const FeaturedProducts = () => {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
+  const [settings, setSettings] = useState<Settings | null>(null);
 
   useEffect(() => {
     const loadFeatured = async () => {
       try {
-        const [mains, allProducts] = await Promise.all([
+        const [mains, allProducts, settingsData] = await Promise.all([
           fetchApi("/api/mainCategories"),
-          fetchApi("/api/products")
+          fetchApi("/api/products"),
+          fetchSettings(),
         ]);
 
         if (mains && allProducts) {
-          // Get the first product from each of the first 4 main categories
+          if (settingsData) setSettings(settingsData);
           const featured: Product[] = [];
           const usedCategories = new Set<string>();
-
           for (const main of mains) {
             if (featured.length >= 4) break;
-            const product = allProducts.find((p: Product) => p.category === main._id);
+            const product = allProducts.find(
+              (p: Product) => p.category === main._id,
+            );
             if (product) {
               featured.push(product);
               usedCategories.add(main._id);
             }
           }
 
-          // If we have less than 4, just fill with any products
           if (featured.length < 4) {
             for (const p of allProducts) {
               if (featured.length >= 4) break;
-              if (!featured.find(fp => fp._id === p._id)) {
+              if (!featured.find((fp) => fp._id === p._id)) {
                 featured.push(p);
               }
             }
@@ -59,7 +75,19 @@ export const FeaturedProducts = () => {
   }, []);
 
   const handleQuoteRequest = (productName: string) => {
-    router.push(`/${language}/pricing?product=${encodeURIComponent(productName)}`);
+    router.push(
+      `/${language}/pricing?product=${encodeURIComponent(productName)}`,
+    );
+  };
+
+  const handleWhatsApp = (productName: string) => {
+    const phoneNumber = settings?.whatsapp || "96656924011"; // استبدل برقم الواتس اب الخاص بك
+    const message =
+      language === "ar"
+        ? `السلام عليكم، أود الاستفسار عن منتج: ${productName}`
+        : `Hello, I would like to inquire about product: ${productName}`;
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   const handleProductClick = (productId: string) => {
@@ -73,7 +101,7 @@ export const FeaturedProducts = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -89,26 +117,35 @@ export const FeaturedProducts = () => {
               {language === "ar" ? "منتجاتنا المميزة" : "Featured Products"}
             </h2>
             <p className="text-lg text-slate-500 font-medium">
-              {language === "ar" 
+              {language === "ar"
                 ? "اكتشف مجموعتنا الواسعة من الحلول التقنية المتقدمة المصممة خصيصاً لتلبية احتياجاتك."
                 : "Discover our wide range of advanced technical solutions specifically designed to meet your needs."}
             </p>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <Link 
+            <Link
               href={`/${language}/products`}
               className="group flex items-center gap-3 px-8 py-4 bg-white rounded-2xl text-primary font-bold hover:bg-primary hover:text-white transition-all duration-300 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-primary/20"
             >
-              <span>{language === "ar" ? "عرض جميع المنتجات" : "View All Products"}</span>
-              {language === "ar" ? 
-                <ArrowLeft className="group-hover:-translate-x-2 transition-transform duration-300" size={18} /> : 
-                <ArrowRight className="group-hover:translate-x-2 transition-transform duration-300" size={18} />
-              }
+              <span>
+                {language === "ar" ? "عرض جميع المنتجات" : "View All Products"}
+              </span>
+              {language === "ar" ? (
+                <ArrowLeft
+                  className="group-hover:-translate-x-2 transition-transform duration-300"
+                  size={18}
+                />
+              ) : (
+                <ArrowRight
+                  className="group-hover:translate-x-2 transition-transform duration-300"
+                  size={18}
+                />
+              )}
             </Link>
           </motion.div>
         </div>
@@ -130,13 +167,13 @@ export const FeaturedProducts = () => {
               {/* Image Container */}
               <div className="relative h-64 bg-gradient-to-br from-slate-50 to-white flex items-center justify-center p-6 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <img 
-                  src={product.imageUrl} 
+                <img
+                  src={product.imageUrl}
                   alt={product.name}
                   className="max-h-full object-contain transform group-hover:scale-110 transition-transform duration-700 ease-out"
                   referrerPolicy="no-referrer"
                 />
-                
+
                 <div className="absolute top-4 right-4">
                   <span className="text-xs uppercase tracking-wider font-black px-3 py-1.5 rounded-full bg-primary/10 text-primary backdrop-blur-sm">
                     {product.brand}
@@ -144,13 +181,16 @@ export const FeaturedProducts = () => {
                 </div>
 
                 {/* Quick View Button on Hover */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: hoveredProduct === product._id ? 1 : 0, y: hoveredProduct === product._id ? 0 : 20 }}
+                  animate={{
+                    opacity: hoveredProduct === product._id ? 1 : 0,
+                    y: hoveredProduct === product._id ? 0 : 20,
+                  }}
                   transition={{ duration: 0.3 }}
                   className="absolute inset-0 bg-primary/80 backdrop-blur-sm flex items-center justify-center gap-3"
                 >
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleProductClick(product._id);
@@ -165,30 +205,46 @@ export const FeaturedProducts = () => {
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-grow">
-
                 <h3 className="text-xl font-black text-primary mb-3 line-clamp-2 group-hover:text-accent transition-colors">
                   {product.name}
                 </h3>
-                
-                <div 
+
+                <div
                   className="text-slate-500 text-sm line-clamp-2 mb-4 flex-grow"
                   dangerouslySetInnerHTML={{ __html: product.description }}
                 />
 
-                {/* Price and Action */}
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                  
-                  <button 
+                {/* Buttons Section - Two buttons side by side */}
+                <div className="flex items-center gap-3 mt-4 pt-4 border-t border-slate-100">
+                  {/* Request Quote Button */}
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleQuoteRequest(product.name);
                     }}
-                    className="group/btn px-5 py-2.5 rounded-xl bg-primary text-white font-bold hover:bg-accent transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg"
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-primary text-white font-bold hover:bg-accent transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg group/btn"
                   >
-                    <ShoppingCart size={16} className="group-hover/btn:scale-110 transition-transform" />
-                    <span className="text-sm">
+                    <ShoppingCart
+                      size={16}
+                      className="group-hover/btn:scale-110 transition-transform"
+                    />
+                    <span className="text-sm whitespace-nowrap">
                       {language === "ar" ? "طلب عرض سعر" : "Request Quote"}
                     </span>
+                  </button>
+
+                  {/* WhatsApp Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleWhatsApp(product.name);
+                    }}
+                    className="flex-1 px-2 py-2.5 rounded-xl bg-[#25D366] text-white font-bold hover:bg-[#20b859] transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg group/whatsapp"
+                  >
+                    <FaWhatsapp
+                      size={18}
+                      className="group-hover/whatsapp:scale-110 transition-transform"
+                    />
                   </button>
                 </div>
               </div>

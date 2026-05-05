@@ -32,7 +32,7 @@ export const Hero = () => {
     <section className="relative pt-20 pb-10 overflow-hidden">
       {/* Background Image Overlay */}
       <div 
-        className="absolute inset-0 z-0 bg-cover bg-center opacity-30"
+        className="absolute inset-0 z-0 bg-cover bg-center opacity-50"
         style={{
           backgroundImage: "url('/hero.gif')",
         }}
