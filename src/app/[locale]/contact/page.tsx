@@ -65,7 +65,7 @@ const ContactContent = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-24 overflow-hidden bg-gradient-to-br from-white via-primary/5 to-white">
+      <section className="relative pt-20 pb-24 overflow-hidden bg-gradient-to-br from-primary via-primary/50 to-primary">
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
           <motion.div
@@ -305,7 +305,7 @@ const ContactContent = () => {
       </section>
 
       {/* Contact Cards Section */}
-      <section className="py-24 bg-secondary relative overflow-hidden">
+      <section className="py-24 bg-primary relative overflow-hidden">
         {/* Background pattern */}
         <div
           className="absolute inset-0 opacity-5"
@@ -394,51 +394,6 @@ const ContactContent = () => {
                 </div>
               </motion.div>
             ))}
-
-            {/* Social Media Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="group relative"
-            >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent to-primary rounded-3xl blur opacity-0 group-hover:opacity-30 transition-all duration-500" />
-
-              <div className="relative glass-card p-8 rounded-3xl border border-white/10 hover:border-accent/50 transition-all duration-500">
-                <h3 className="text-xl font-bold mb-6 text-white">
-                  {language === "ar" ? "تواصل معنا" : "Connect with us"}
-                </h3>
-
-                <div className="flex items-center gap-4">
-                  {[
-                    { icon: Twitter, color: "hover:bg-[#1DA1F2]" },
-                    { icon: Facebook, color: "hover:bg-[#4267B2]" },
-                    { icon: Linkedin, color: "hover:bg-[#0077b5]" },
-                    { icon: Instagram, color: "hover:bg-[#E1306C]" },
-                  ].map((social, i) => (
-                    <motion.div
-                      key={i}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      className={`w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:text-white transition-all duration-300 cursor-pointer ${social.color}`}
-                    >
-                      <social.icon size={20} />
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Availability status */}
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-white/40 text-sm">
-                      {language === "ar" ? "متاحون 24/7" : "Available 24/7"}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
@@ -649,7 +604,7 @@ const ContactContent = () => {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="absolute -top-3 -right-3 bg-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
+                      className="absolute -top-3 -right-3 bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
                     >
                       {language === "ar" ? "مجاني للتجربة" : "Free Trial"}
                     </motion.div>

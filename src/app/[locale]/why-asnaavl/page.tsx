@@ -148,14 +148,14 @@ const WhyContent = () => {
 
       {/* Hero Section */}
       <section
-        className="relative pt-30 pb-24 overflow-hidden bg-secondary"
+        className="relative pt-30 pb-24 overflow-hidden bg-primary"
         style={{
           backgroundImage: "url('/bg5.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-secondary/95" />
+        <div className="absolute inset-0 bg-primary/95" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -182,9 +182,6 @@ const WhyContent = () => {
                 >
                   {language === "ar" ? "جرب النظام الآن" : "Try the System Now"}
                 </Link>
-                <button className="outline-button text-lg px-8 py-4">
-                  {language === "ar" ? "اعرف المزيد" : "Learn More"}
-                </button>
               </div>
             </motion.div>
 
@@ -397,7 +394,7 @@ const WhyContent = () => {
                 }}
               />
 
-              <p className="text-2xl md:text-3xl font-medium text-white leading-relaxed relative z-10">
+              <p className="text-2xl md:text-3xl font-medium text-primary leading-relaxed relative z-10">
                 {language === "ar"
                   ? "يساعد ASNA AVL المؤسسات على إدارة عمليات أساطيلها بذكاء، وتحسين أدائها، وتوسيع نطاقها، بالاعتماد على البيانات، مدعومة بالأتمتة، ومبنية على فهم عميق للسوق السعودي والخليجي. نساعدك على تقديم عمليات أكثر أماناً وذكاءً وكفاءة كل يوم."
                   : "ASNA AVL helps organizations manage their fleet operations smartly, improve performance, and scale, relying on data, supported by automation, and built on a deep understanding of the Saudi and Gulf market. We help you deliver safer, smarter, and more efficient operations every day."}
@@ -409,7 +406,7 @@ const WhyContent = () => {
                   <Award className="text-accent w-6 h-6" />
                 </div>
                 <div className="text-start">
-                  <div className="text-white/80 text-sm">
+                  <div className="text-accent text-sm">
                     {language === "ar" ? "فريق ASNA AVL" : "ASNA AVL Team"}
                   </div>
                   <div className="text-accent text-xs">
@@ -425,7 +422,7 @@ const WhyContent = () => {
       </section>
 
       {/* Why Us Section */}
-      <section className="py-24 bg-secondary relative overflow-hidden">
+      <section className="py-24 bg-primary relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-2 h-2 bg-accent rounded-full" />
@@ -513,7 +510,7 @@ const WhyContent = () => {
       </section>
 
       {/* Achievements Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-24 relative overflow-hidden">
         {/* Background decoration */}
         <div
           className="absolute inset-0"
@@ -535,7 +532,7 @@ const WhyContent = () => {
             <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
               {language === "ar" ? "إنجازاتنا" : "Our Achievements"}
             </span>
-            <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
+            <h2 className="text-4xl md:text-5xl text-primary font-extrabold mb-6">
               {language === "ar"
                 ? "انجازاتنا الرئيسية"
                 : "Our Main Achievements"}
@@ -574,7 +571,7 @@ const WhyContent = () => {
                       {item.icon}
                     </div>
 
-                    <h3 className="text-2xl font-bold mb-4 text-center group-hover:text-primary transition-colors duration-300">
+                    <h3 className="text-2xl font-bold mb-4 text-center text-primary transition-colors duration-300">
                       {item.title}
                     </h3>
 
@@ -629,7 +626,7 @@ const WhyContent = () => {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-primary mb-6">
               {language === "ar" ? "الرؤية والقيم" : "Vision & Values"}
             </h2>
           </div>
@@ -643,7 +640,7 @@ const WhyContent = () => {
                 <div className="w-12 h-12 rounded-xl bg-primary text-white flex items-center justify-center mx-auto mb-6">
                   {value.icon}
                 </div>
-                <h3 className="text-xl font-bold mb-4">{value.title}</h3>
+                <h3 className="text-xl font-bold text-primary mb-4">{value.title}</h3>
                 <p className="text-primary/60 text-sm leading-relaxed">
                   {value.desc}
                 </p>
@@ -832,7 +829,7 @@ const WhyContent = () => {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="absolute -top-3 -right-3 bg-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
+                      className="absolute -top-3 -right-3 bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
                     >
                       {language === "ar" ? "مجاني للتجربة" : "Free Trial"}
                     </motion.div>

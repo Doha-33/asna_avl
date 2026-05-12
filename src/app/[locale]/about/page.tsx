@@ -95,7 +95,7 @@ const AboutContent = () => {
             </div>
 
             {/* Counter with number formatting */}
-            <div className="text-4xl font-extrabold mb-2 group-hover:text-accent transition-colors duration-300">
+            <div className="text-4xl font-extrabold text-primary mb-2 group-hover:text-accent transition-colors duration-300">
               {inView
                 ? stat.value.includes("+")
                   ? `${count}+`
@@ -172,7 +172,7 @@ const AboutContent = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-primary">
               {language === "ar" ? "رؤيتنا" : "Our Vision"}
             </h2>
             <p className="text-xl text-primary/60">
@@ -182,8 +182,8 @@ const AboutContent = () => {
             </p>
           </div>
 
-          <div className=" p-10 rounded-[40px] text-center max-w-5xl mx-auto">
-            <p className="text-2xl md:text-3xl font-medium text-secondary leading-relaxed">
+          <div className=" p-10 rounded-[40px] text-center max-w-5xl mx-auto text-primary">
+            <p className="text-2xl md:text-3xl font-medium leading-relaxed">
               {language === "ar"
                 ? "نؤمن بمستقبل تسهم فيه البيانات المتقدمة، والأتمتة، والعمليات المترابطة في تحقيق مستويات غير مسبوقة من السلامة والكفاءة والنمو للأساطيل في جميع أنحاء المنطقة"
                 : "We believe in a future where advanced data, automation, and interconnected processes contribute to achieving unprecedented levels of safety, efficiency, and growth for fleets across the region"}
@@ -202,7 +202,7 @@ const AboutContent = () => {
         }}
       >
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-primary">
             {language === "ar" ? "أرقامنا تتحدث" : "Our Numbers Speak"}
           </h2>
         </div>
@@ -403,7 +403,7 @@ const AboutContent = () => {
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
-                      className="absolute -top-3 -right-3 bg-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
+                      className="absolute -top-3 -right-3 bg-white text-primary rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-accent/20"
                     >
                       {language === "ar" ? "مجاني للتجربة" : "Free Trial"}
                     </motion.div>
